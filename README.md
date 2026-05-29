@@ -17,6 +17,6 @@ git diff HEAD
 
 # Jab commits compare karo
 git diff commit1 commit2
-
+sfd
 # Jab branches compare karo
 git diff main feature-branch
