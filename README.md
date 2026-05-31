@@ -20,3 +20,26 @@ git diff commit1 commit2
 sfd
 # Jab branches compare karo
 git diff main feature-branch
+
+<!-- Part 7 -->
+git log Git ki history dekhne ke liye use hota hai. Isse tum commits, author, date, commit message, branches, aur changes track kar sakte ho.
+
+# Short History
+git log --oneline
+
+# Last N Commits
+git log -n 5
+
+or 
+git log --oneline -5
+
+# Commits by Specific Author
+git log --author="Himanshu"
+
+# usefull 
+git log --oneline --graph --all
+git log --oneline -10
+git log path/to/file.ts
+git show <commit-id>
+git blame file.ts
+git diff <commit1> <commit2>
