@@ -10,3 +10,7 @@ readable.on("end", () => {
   writeable.end();
 });
 // writeable.end();
+console.log(readable.readableFlowing);
+console.log(readable.readableEnded);
+console.log(readable.isPaused());
+console.log(readable.pause());
