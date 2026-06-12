@@ -5,6 +5,9 @@ use-> Text characters को bytes में convert करना।
 1bit = 0/1 (low/high)
 1 byte = 8bits
 
+1 MB = 1024 × 1024 Bytes
+     = 1,048,576 Bytes
+
 utf8 ek character ko store karne ke liye minimum 1 and maximum 4 bytes le skta hai.
 utf16 ek character ko store karne ke liye minimum 2 bytes and maximum 4 bytes leta hai.
 
