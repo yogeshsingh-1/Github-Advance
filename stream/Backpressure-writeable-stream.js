@@ -39,3 +39,9 @@ writestream.on("finish", () => {
 
 // saara buffered data write ho jaye
 // end() call ho chuka ho
+
+// # Equivalent Built-in Version
+
+// Tumhara pura code Node internally pipe() me karta hai:
+
+readablestream.pipe(writestream);
