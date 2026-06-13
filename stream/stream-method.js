@@ -30,3 +30,14 @@ writestream.write("hello world");
 writestream.end();
 
 console.log(writestream.writableHighWaterMark);
+
+
+// Jo data readablestream se aa raha hai, use automatically writestream me bhej do. without event ka concept lagaye
+readstream.pipe(writestream);
+
+// Readable stream aur Writable stream ke beech jo pipe connection bana tha, use tod do.
+readstream.unpipe(writestream);
+
+// 
+// pipe() → readable ko writable se connect karta hai.
+// unpipe() → connection tod deta hai.
