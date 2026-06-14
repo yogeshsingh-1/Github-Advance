@@ -53,3 +53,10 @@ readStream.setEncoding("utf-8");
 // readStream.on("end", () => {
 //   writeStream.end();
 // });
+
+
+console.log(readstream.readableFlowing);
+console.log(readstream.readableEnded);
+console.log(readstream.isPaused());
+console.log(readstream.pause());
+readstream.resume();
