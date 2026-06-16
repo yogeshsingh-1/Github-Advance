@@ -112,3 +112,17 @@ app.listen(3000, () => console.log(`server is listen on 3000`));
 // memoryStorage() → सारे chunks जोड़कर पूरी file RAM में Buffer बनाता है।
 
 // diskStorage() → chunks आते ही stream के जरिए सीधे disk पर लिखता जाता है, इसलिए पूरी file RAM में store नहीं होती।
+
+await fs.promises.rename(file.path, savePath);  
+
+
+// rename() method 2 kaam karta hai.
+
+// 1. File ya folder ka naam change karna.
+// 2. Ek location (temporary path) se doosri location par file ko move karna.
+
+// temp/abc123
+//         ↓
+// uploads/photo.jpg
+
+// Note: Technically rename() कोई अलग "move" function नहीं है। अगर source और destination path अलग हैं, तो operating system इसे move operation की तरह perform करता है।
