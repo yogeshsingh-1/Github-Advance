@@ -34,10 +34,8 @@ console.log(buffer.toString("latin1"));
 // console.log(buffer.includes("hello"));
 console.log(buffer2);
 
-data: image / jpg;
-(base64, base64encodedstring);
-data: image / png;
-(base64, base64encodedstring);
+data: image/jpg;base64,base64encodedstring;
+data: image/png;base64,base64encodedstring;
 data: image / gif;
 (base64, base64encodedstring);
 data: image / jpeg;

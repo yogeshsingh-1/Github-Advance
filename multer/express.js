@@ -11,23 +11,23 @@ const app = express();
 // Disk Storage → Hard Disk में save
 // Memory Storage → RAM में save
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     const uploadPath = path.resolve(__dirname, "upload");
-//     fs.mkdirSync(uploadPath, { recursive: true });
-//     cb(null, uploadPath);
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, uniqueSuffix + file.originalname);
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-const upload = multer({
-  dest: "assest/",
-  storage: multer.memoryStorage(),
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadPath = path.resolve(__dirname, "upload");
+    fs.mkdirSync(uploadPath, { recursive: true });
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + file.originalname);
+  },
 });
+
+const upload = multer({ storage: storage });
+// const upload = multer({
+//   dest: "assest/",
+//   storage: multer.memoryStorage(),
+// });
 // const storage = multer.memoryStorage();
 
 // क्योंकि file disk पर save ही नहीं होती।
