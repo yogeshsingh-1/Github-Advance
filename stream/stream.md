@@ -3,32 +3,33 @@
 There are 4 types of streams in Node.js:
 
 1 MB = 1024 × 1024 Bytes
-     = 1,048,576 Bytes
+= 1,048,576 Bytes
 
 # highWaterMark kya hota hai?
 
 const readable = fs.createReadStream("large-file.zip", {
-  highWaterMark: 64 * 1024 * 1024, // 64 MB
+highWaterMark: 64 _ 1024 _ 1024, // 64 MB
 });
 
 Default:
-64 * 1024
+64 \* 1024
 = 65,536 bytes
 = 64 KB mai read karta hai.
 
 highWaterMark maximum buffer size nahi hota.
 
 # destroy() kya karta hai?
+
 Stream ko turant band kar deta hai.
 Aage data read nahi hoga.
 File descriptor close kar deta hai.
 close event emit hota hai.
 
-1. highWaterMark: 64 * 1024
-means data roughly 64 KB chunks mein aayega.
+1. highWaterMark: 64 \* 1024
+   means data roughly 64 KB chunks mein aayega.
 
-2. highWaterMark: 64 * 1024 * 1024
-means data roughly 64 MB chunks mein aayega.
+2. highWaterMark: 64 _ 1024 _ 1024
+   means data roughly 64 MB chunks mein aayega.
 
 Ye sirf batata hai ki stream ek time par kitna data buffer karne ki koshish karegi before applying backpressure.
 
@@ -37,20 +38,20 @@ highWaterMark = Chunk/Buffer Threshold
 
 Ye stream ka internal buffer size threshold hota hai.
 
-1. Readable Stream 
+1. Readable Stream -> process.stdin
 <!-- Highwatermark -->
 
 Readable streams are used to read data from a source.
 
 Event ->open,data,end,error,close
 
-data     → Jab naya data chunk receive hota hai.
-end      → Jab saara data read ho jata hai.
-error    → Jab reading ke dauran koi error aati hai.
-close    → Jab stream/resource close ho jata hai.
+data → Jab naya data chunk receive hota hai.
+end → Jab saara data read ho jata hai.
+error → Jab reading ke dauran koi error aati hai.
+close → Jab stream/resource close ho jata hai.
 readable → Jab internal buffer mein data available hota hai.
-pause    → Jab stream pause ho jati hai.
-resume   → Jab paused stream dobara start hoti hai.
+pause → Jab stream pause ho jati hai.
+resume → Jab paused stream dobara start hoti hai.
 
 Examples
 Reading a file
@@ -62,26 +63,26 @@ const fs = require("fs");
 const readableStream = fs.createReadStream("data.txt",{highWaterMark : 64*1024*1024});
 
 readableStream.on("data", (chunk) => {
-  console.log(chunk.toString());
+console.log(chunk.toString());
 });
 
 Real-Life Example
 
 Reading a 1GB file without loading the entire file into memory.
 
-2. Writable Stream
+2. Writable Stream -> process.stdout
 
 Writable streams are used to write data to a destination.
 
 default highwatermark 16kb hota hai.
 Event -> finish,drain,error,close
 
-finish   → Jab saara data successfully write ho jata hai.
-drain    → Jab internal buffer khali ho jata hai aur aur data accept kar sakta hai.
-error    → Jab writing ke dauran error aati hai.
-close    → Jab writable stream close ho jati hai.
-pipe     → Jab koi readable stream is writable stream se pipe hoti hai.
-unpipe   → Jab readable stream pipe hona band kar deti hai.
+finish → Jab saara data successfully write ho jata hai.
+drain → Jab internal buffer khali ho jata hai aur aur data accept kar sakta hai.
+error → Jab writing ke dauran error aati hai.
+close → Jab writable stream close ho jati hai.
+pipe → Jab koi readable stream is writable stream se pipe hoti hai.
+unpipe → Jab readable stream pipe hona band kar deti hai.
 
 Examples
 Writing data to a file
@@ -105,19 +106,19 @@ Duplex streams can read and write data.
 
 Event -> data,end,finish,drain,error,close
 
-data     → Jab naya data chunk receive hota hai.
-end      → Jab readable side ka data khatam ho jata hai.
+data → Jab naya data chunk receive hota hai.
+end → Jab readable side ka data khatam ho jata hai.
 readable → Jab internal buffer mein data available hota hai.
-pause    → Jab readable side pause ho jati hai.
-resume   → Jab paused readable side dobara start hoti hai.
+pause → Jab readable side pause ho jati hai.
+resume → Jab paused readable side dobara start hoti hai.
 
-finish   → Jab writable side ka saara data write ho jata hai.
-drain    → Jab writable buffer khali ho jata hai aur aur data accept kar sakta hai.
+finish → Jab writable side ka saara data write ho jata hai.
+drain → Jab writable buffer khali ho jata hai aur aur data accept kar sakta hai.
 
-error    → Jab read ya write operation mein error aati hai.
-close    → Jab duplex stream completely close ho jati hai.
-pipe     → Jab koi readable stream isse pipe hoti hai.
-unpipe   → Jab pipe connection remove ho jata hai.
+error → Jab read ya write operation mein error aati hai.
+close → Jab duplex stream completely close ho jati hai.
+pipe → Jab koi readable stream isse pipe hoti hai.
+unpipe → Jab pipe connection remove ho jata hai.
 
 Think of them as a combination of Readable and Writable streams.
 
@@ -128,7 +129,7 @@ WebSocket
 socket.write("Hello Server"); // Write
 
 socket.on("data", (data) => { // Read
-  console.log(data.toString());
+console.log(data.toString());
 });
 
 Real-Life Example
@@ -144,9 +145,9 @@ They can read data, modify it, and then write the transformed data.
 const { Transform } = require("stream");
 
 const upperCaseTransform = new Transform({
-  transform(chunk, encoding, callback) {
-    callback(null, chunk.toString().toUpperCase());
-  }
+transform(chunk, encoding, callback) {
+callback(null, chunk.toString().toUpperCase());
+}
 });
 
 Examples
@@ -156,18 +157,15 @@ Converting text to uppercase
 
 # Interview Difference
 
-Readable  → Only Read
-Writable  → Only Write
-Duplex    → Read + Write
+Readable → Only Read
+Writable → Only Write
+Duplex → Read + Write
 Transform → Read + Modify + Write
 
-
-Readable  = Input
-Writable  = Output
-Duplex    = Input + Output
+Readable = Input
+Writable = Output
+Duplex = Input + Output
 Transform = Input + Process + Output
-
-
 
 # diffrend type of event in stream
 
@@ -240,6 +238,7 @@ readable.on("close", () => {
 ```
 
 ---
+
 # Writable Stream Events
 
 Writable streams are used to write data to a destination such as files or HTTP responses.
@@ -306,8 +305,8 @@ Duplex streams support both reading and writing.
 
 Examples:
 
-* TCP Sockets
-* WebSockets
+- TCP Sockets
+- WebSockets
 
 Supported events:
 
@@ -328,9 +327,9 @@ Transform streams are a special type of Duplex stream that modify data while pas
 
 Examples:
 
-* Compression (gzip)
-* Encryption
-* Data conversion
+- Compression (gzip)
+- Encryption
+- Data conversion
 
 Supported events:
 
@@ -346,7 +345,7 @@ close
 Transform streams implement:
 
 ```js
-transform(chunk, encoding, callback)
+transform(chunk, encoding, callback);
 ```
 
 This method receives input data, transforms it, and pushes the modified data to the output stream.
@@ -385,9 +384,9 @@ close
 
 ### Interview Summary
 
-* `data` → New chunk is available.
-* `end` → Reading completed.
-* `finish` → Writing completed.
-* `drain` → Writable stream buffer is empty again.
-* `error` → Something went wrong.
-* `close` → Stream resources have been closed.
+- `data` → New chunk is available.
+- `end` → Reading completed.
+- `finish` → Writing completed.
+- `drain` → Writable stream buffer is empty again.
+- `error` → Something went wrong.
+- `close` → Stream resources have been closed.
