@@ -1,6 +1,12 @@
 import fs from "node:fs";
-const readablestream = fs.createReadStream("Github.md", { highWaterMark: 4 });
-const writestream = fs.createWriteStream("local.txt", { highWaterMark: 1 });
+const readablestream = fs.createReadStream("Github.md", {
+  highWaterMark: 4,
+  encoding: "utf-8",
+});
+const writestream = fs.createWriteStream("local.txt", {
+  highWaterMark: 1, //backpressure 
+  encoding: "utf-8",
+});
 
 // # Equivalent Built-in Version
 
@@ -20,7 +26,7 @@ readablestream.pipe(writestream);
 // Readable stream aur Writable stream ke beech jo pipe connection bana tha, use tod do.
 readablestream.unpipe(writestream);
 
-// 
+//
 // pipe() → readable ko writable se connect karta hai.
 // unpipe() → connection tod deta hai.
 

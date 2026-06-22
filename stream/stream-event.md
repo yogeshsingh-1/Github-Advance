@@ -1,4 +1,4 @@
-<!-- Readable stream -->
+<!-- Readable stream -->    process.stdin
 data     → Jab naya data chunk receive hota hai.
 end      → Jab saara data read ho jata hai.
 error    → Jab reading ke dauran koi error aati hai.
@@ -7,7 +7,7 @@ readable → Jab internal buffer mein data available hota hai.
 pause    → Jab stream pause ho jati hai.
 resume   → Jab paused stream dobara start hoti hai.
 
-<!-- Writeable stream -->
+<!-- Writeable stream -->  process.stdout
 finish   → Jab saara data successfully write ho jata hai.
 drain    → Jab internal buffer khali ho jata hai aur aur data accept kar sakta hai.
 error    → Jab writing ke dauran error aati hai.
