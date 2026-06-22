@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="submit" method="POST">
+      <input name="email" />
+      <input name="password" />
+
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            email: "test@gmail.com",
+            password: "123456",
+          }),
+        });
+    </script>
+  </body>
+</html>
