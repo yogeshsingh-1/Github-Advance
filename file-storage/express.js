@@ -1,10 +1,17 @@
 import express from "express";
+import { createWriteStream, WriteStream } from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
 const app = express();
 
 app.use((req, res, next) => {
-  res.set("Access-Control-Allow-Origin", "*");
+  // res.set("Access-Control-Allow-Origin", "*");
+  // res.set("Access-Control-Allow-Method", "*");
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*",
+    "Access-Control-Allow-Headers": "*",
+  });
   next();
 });
 app.use(express.json());
@@ -42,6 +49,29 @@ app.get("/file/:fileName", async (req, res) => {
   }
 });
 
+app.post("/:filename", (req, res) => {
+  console.log(req.params.filename);
+  const fileName = req.params.filename;
+  // req.highWaterMark = 64 * 1024 * 1024;
+  const writeStream = createWriteStream(`./storage/${fileName}`, {
+    highWaterMark: 64 * 1024 * 1024,
+  });
+
+  req.pipe(writeStream);
+  writeStream.on("finish", () => {
+    return res.status(200).json({
+      message: "File Uploaded Succesfully.",
+    });
+  });
+  // req.on("data", (chunk) => {
+  //   writeStream.write(chunk);
+  // });
+  req.on("end", () => {
+    // writeStream.end();
+    // res.status(200).json("File upload succesfully");
+    console.log("File Uploaded");
+  });
+});
 app.listen(8080, () => console.log(`server is listening on port 8080`));
 
 // res.sendFile(filePath)  vs res.download(filePath);

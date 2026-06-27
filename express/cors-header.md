@@ -42,7 +42,7 @@ Some requests don't trigger a CORS preflight. Those are called simple requests.
 
 A simple request is one that meets all the following conditions:
 
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS
 
 One of the allowed methods: GET,HEAD,POST
 
@@ -53,6 +53,9 @@ multipart/form-data
 text/plain
 
 # What is a Preflight Request? app.options("\*", cors());
+
+Preflight request automatically browser ke dwara send ki jati hai jab bhi browser ko lagta hai ki request ek non-simple (complex) CORS request hai. Browser actual request bhejne se pehle server se permission check karta hai. Ye permission check OPTIONS request ke through hota hai.
+Isme Kuch Method and Headers ko check karta hai ki ye headers and method allowed hai.
 
 Answer:
 A Preflight Request is an automatic HTTP OPTIONS request sent by the browser before certain cross-origin requests. It checks whether the server allows the requested HTTP method and headers.
