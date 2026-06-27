@@ -6,6 +6,98 @@
     <title>Document</title>
   </head>
   <body>
-    Hello world
+    <label for="user-documents">Files :</label>
+    <input name="file" placeholder="Enter File Name..." style="padding: 3px" />
+    <!-- <input type="file" name="Upload_File" multiple /> -->
+    <button id="form-btn" onclick="fileRename()">Save</button>
+
+    <!-- File Upload -->
+    <div id="files"></div>
   </body>
+  <script type="module">
+    async function getFiles() {
+      try {
+        const response = await fetch("http://localhost:8080", {
+          method: "GET",
+        });
+        const data = await response.json();
+        // console.log(data);
+        if (data) {
+          return data;
+        }
+        alert("File Not Found");
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function updateDocument() {
+      let fileName = await getFiles();
+      if (fileName.length) {
+        const file = document.getElementById("files");
+        let s = "";
+        for (let i = 0; i < fileName.length; i++) {
+          s += `
+              <div class="file-item" data-id="${i + 1}">
+              <span>${fileName[i]}</span>
+              <a href="http://localhost:8080/${fileName[i]}" target="_blank">Open</a>
+              <a href="http://localhost:8080/file/${fileName[i]}?action=download" download>Download</a>
+             <button onclick="renameFile('${fileName[i]}')">
+              Rename
+            </button>
+
+              <button onClick="deleteFile('${fileName[i]}')">Delete</button>
+            </div>
+            `;
+        }
+        // <button>Save</button>
+        file.innerHTML = s;
+      }
+    }
+    const input = document.querySelector('input[name="file"]');
+    const btn = document.getElementById("form-btn");
+    if (!input.value.trim()) {
+      btn.style.display = "none";
+      input.style.display = "none";
+    }
+    let renameFileName = "";
+    window.renameFile = function (fileName) {
+      if (!input) {
+        console.error("Input not found");
+        return;
+      }
+      input.value = fileName;
+      renameFileName = input.value;
+      btn.style.display = "inline";
+      input.style.display = "inline";
+      input.focus();
+    };
+
+    window.fileRename = async function () {
+      // let oldFileName =
+      let data = await fetch(
+        `http://localhost:8080/file/${renameFileName}?action=rename&newFileName=${input.value}`,
+      );
+      data = await data.json();
+
+      alert(data.message);
+      await updateDocument();
+      btn.style.display = "none";
+      input.style.display = "none";
+    };
+    renameFileName = "";
+    window.deleteFile = async function (fileName) {
+      let data = await fetch(
+        `http://localhost:8080/file/${fileName}?action=delete`,
+      );
+      data = await data.json();
+
+      alert(data.message);
+      await updateDocument();
+      btn.style.display = "none";
+      btn.style.display = "none";
+    };
+
+    await updateDocument();
+  </script>
 </html>
