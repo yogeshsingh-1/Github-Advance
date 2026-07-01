@@ -2,6 +2,7 @@ import express from "express";
 import AuthRouter from "./route/login.route.js";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createReadStream, createWriteStream } from "node:fs";
 const app = express();
 
 app.use(express.static("public"));
@@ -13,6 +14,8 @@ app.use((req, res, next) => {
   req.companyId = "12345";
   next();
 });
+// const files = await fs.readdir("./");
+// console.log(files);
 
 app.get("/", (req, res) => {
   console.log(req.url);
@@ -78,6 +81,74 @@ app.listen(3000, () => {
   console.log(`server is running on port 3000`);
 });
 
+app.get("/file", async (req, res) => {
+  const files = await fs.readdir("./");
+  res.set("Content-Type", "text/html");
+  for (let file of files) {
+    const stat = await fs.stat(`./${file}`);
+
+    if (!stat.isDirectory()) {
+      const readPath = path.join(file);
+      const readStream = createReadStream(readPath, { encoding: "utf-8" });
+      // readStream.pipe(res);
+      readStream.on("data", (chunk) => {
+        res.write(chunk);
+      });
+    }
+  }
+  res.end();
+});
+
+app.get("/download", (req, res) => {
+  const readstream = createReadStream("./process.json", {
+    highWaterMark: 1,
+  });
+
+  res.setHeader("Content-Type", "text/plain");
+
+  readstream.on("data", (chunk) => {
+    readstream.pause(); // Stream रोक दो
+
+    res.write(chunk); // 1 byte भेजो
+
+    setTimeout(() => {
+      readstream.resume(); // 200ms बाद अगला byte
+    }, 100);
+  });
+
+  readstream.on("end", () => {
+    res.end();
+  });
+});
+
+app.get("/:filename", (req, res) => {
+  const { filename } = req.params;
+  const id = crypto.randomUUID();
+  const extName = path.extname(filename);
+  console.log(extName);
+  const writeStream = createWriteStream(`./storage/${id}${extName}`);
+  req.on("data", (chunk) => {
+    writeStream.write(chunk);
+  });
+  // req.pipe(writeStream);
+  req.on("end", () => {
+    writeStream.end();
+    res.json({ msg: "File Uploaded" });
+  });
+});
+async function getDir(dir) {
+  const files = await fs.readdir(dir);
+  for (let file of files) {
+    const stat = await fs.stat(`${dir}/file`);
+    if (stat.isDirectory()) {
+      const writeStream = createWriteStream(file);
+      req.pipe(writeStream);
+    } else {
+      const writeStream = createWriteStream(file);
+      req.pipe(writeStream);
+    }
+  }
+}
 
 // app.get("/products/:id?", (req, res) => {
 //   // ? ka matlab optional parameter hota hai.

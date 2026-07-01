@@ -2,6 +2,7 @@ node_modules/
 upload/
 assset/
 .vscode/
+storage/
 *.mp4
 *.pdf
 *.jpg
