@@ -1,0 +1,1 @@
+node mai editor mode mai enter -> .editor

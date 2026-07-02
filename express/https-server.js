@@ -1,34 +1,28 @@
-import "./injections/container.injection";
-
-import { createServer } from "https";
-
+import express from "express";
+import https from "https";
 import fs from "fs";
 
-import { app } from "./providers/app";
+const app = express();
 
-import EnvDetails from "./utils/envdetails.utils";
+app.get("/", (req,res)=>{
 
-process.env.TZ = "+05:30";
+    console.log("Route Hit");
 
-const { port, sqlLogFolder } = EnvDetails;
+    res.send("Hello");
 
-const ensureDirectories = () => {
-  if (!fs.existsSync(sqlLogFolder)) {
-    fs.mkdirSync(sqlLogFolder, { recursive: true });
-  }
-};
-console.log(fs.readFileSync("./key.pem"))
-const httpsOptions = {
-  key: fs.readFileSync("./key.pem"),
-  cert: fs.readFileSync("./cert.pem"),
+});
+
+const options={
+    key:fs.readFileSync("./key.pem"),
+    cert:fs.readFileSync("./cert.pem")
 };
 
-const startServer = async () => {
-  ensureDirectories();
+// Aur HTTP ko certificate ki zarurat nahi hoti.
 
-  createServer(httpsOptions, app).listen(port, () => {
-    console.log(`HTTPS Server listening on port ${port}`);
-  });
-};
+// Agar HTTPS chahiye, to tumhe khud https.createServer() use karna padta hai aur key + cert provide karne padte hain.
 
-startServer();
+const server=https.createServer(options,app);
+
+server.listen(3000,()=>{
+  console.log(`server is listening on 3000`)
+});
