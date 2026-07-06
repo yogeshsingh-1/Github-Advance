@@ -42,3 +42,15 @@ db.users.find({curreny:"USD"}) -> Return array of Object.
 # db.users.find({amount : {$lt : 200}}) -> woh document doh jiske amount 200 se kaam hai.
 
 # db.users.find({amount : {$lte : 200}}) -> woh document doh jiske amount 200 se kaam hai or equal hai.
+
+<!-- Update One document -->
+
+Update and insert combination
+
+db.users.updateOne({name :'yogesh'}, {$set : {amount:120000}})
+
+yogesh name se find karo agar document hai toh amount set kar doh.
+
+<!-- Update whole object -->
+
+db.users.replaceOne({name :"yogesh"}, {name:"golu"})
