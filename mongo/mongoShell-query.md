@@ -51,6 +51,31 @@ db.users.updateOne({name :'yogesh'}, {$set : {amount:120000}})
 
 yogesh name se find karo agar document hai toh amount set kar doh.
 
+<!-- Update many object -->
+
+db.users.updateMany({name :'yogesh'}, {$set : {amount:120000}})
+
+Jitne yogesh name ke document hai sabke amount set kar doh.
+
 <!-- Update whole object -->
 
 db.users.replaceOne({name :"yogesh"}, {name:"golu"})
+
+<!-- Delete Property in Document -->
+
+db.users.updateOne({name :'yogesh'}, {$unset : {age:27}})
+
+<!-- Delete One document in Collection -->
+
+db.users.deleteOne({_id: ObjectId('67d69529abc7435a7de2d9dc')})
+
+<!-- Delete Many Document -->
+
+db.users.deleteMany({name :"yogesh"})
+
+<!-- Delete collection -->
+db.collectioName().drop()
+
+<!-- Drop Database -->
+
+db.dropDatabase()
