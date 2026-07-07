@@ -48,3 +48,6 @@ db.users.insertOne({
 <!-- Based on data type alias we search the data -->
 
 db.users.find({info : { $type : "bool" }})
+
+<!-- Give mongoDB Db Path -->
+mongod --dbpath C:\Program Files\MongoDB\Server\8.0\data
