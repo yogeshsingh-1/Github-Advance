@@ -70,5 +70,17 @@ if (!b) {
   ]);
   b = 1;
 }
-await studentCollection.deleteMany({name:'yogesh'})
-await studentCollection1.drop();
+const deleteOne = await studentCollection.deleteOne({ name: "yogesh" });
+const deleteMany = await studentCollection.deleteMany({ name: "yogesh" });
+console.log(deleteOne);
+console.log(deleteMany);
+
+const c = await studentCollection.updateOne(
+  { name: "yogesh" },
+  { $set: { name: "Rohan" ,class:10,age:27} }
+);
+// await studentCollection1.drop();   //drop collection
+
+await db.dropDatabase(); //drop database
+
+await client.close();
