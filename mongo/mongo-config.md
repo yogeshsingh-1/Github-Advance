@@ -2,7 +2,7 @@ C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe" --config "C:\Program Files\M
 
 <!-- custom configuration file (mongod.cfg) -->
 
-mongod --config "D:\Projects\DockerCompose\K8S\github\mongo\mongod.txt".
+mongod --config "D:\Projects\DockerCompose\K8S\github\mongo\mongod.txt".  ["Run as Adminstrator"]
 
 
 **Note:** MongoDB configuration file (`mongod.cfg`) ka use MongoDB server ki settings configure karne ke liye kiya jata hai. Is file ki madad se hum:
@@ -39,6 +39,7 @@ logAppend: true
 net:
 port: 27017
 bindIp: 0.0.0.0,::1
+ipv6: true
 
 processManagement:
 windowsService:
