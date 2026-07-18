@@ -90,7 +90,7 @@ SELECT
     xact_start,
     query
 FROM pg_stat_activity
-WHERE state = 'idle in transaction';
+WHERE state = 'idle';
 ```
 
 ### Purpose
@@ -198,4 +198,4 @@ SELECT pg_terminate_backend(2665104);
 | `SELECT pid, query FROM pg_stat_activity WHERE state='active';`                | Get the Process ID (`pid`) of active queries.                |
 | `SELECT pg_terminate_backend(pid);`                                            | Forcefully terminate a session and rollback its transaction. |
 | `SELECT ... WHERE state='idle in transaction';`                                | Find transactions that are open but inactive.                |
-| `SELECT pg_terminate_backend(pid) FROM ... WHERE state='idle in transaction';` | Terminate all idle transactions.                             |
+| `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state='idle in transaction';` | Terminate all idle transactions.                             |
