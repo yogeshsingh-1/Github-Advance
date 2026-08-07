@@ -7,7 +7,7 @@ await client.connect();
 console.log("Default Db", client.db().namespace); // give default DB name
 
 const db = client.db("todoapp"); // connect todoapp DB or create new DB
-db.command()
+db.command();
 console.log("DB-Name", db.namespace); // get the name of DB
 const collections = await db.listCollections().toArray(); // see all your collection in your db
 // console.log(collections);
@@ -37,3 +37,8 @@ function printResult(collection) {
 }
 
 // await client.close();
+
+// Get your collection Info
+
+const userCollection = await db.listCollections({ name: "users" }).toArray();
+console.log(userCollection);

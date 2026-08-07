@@ -31,7 +31,7 @@ db.users.find({info : { $type : "bool" }})
 Example:
 
 # db.users.findOne({info :{$type :'array'}})
-
+ 
 {
 \_id: ObjectId('6a4d1e7ce61161578c4eeb8b'),
 name: 'Array',

@@ -85,7 +85,7 @@ db.dropDatabase()
 
 db.users.find({name : {$in : ["Yogesh","Ajay","Jai"]}});
 
-db.users.find({_id : {$in : [123,345,678]}});
+db.users.find({\_id : {$in : [123,345,678]}});
 
 return -> Array of Users
 
@@ -99,3 +99,7 @@ db.student.updateMany(
 <!-- Delete Bulk document using $in -->
 
 db.student.deleteMany({name :{$in :["Amit","Rahul"]}})
+
+<!-- Get MongoDb Collection Info -->
+
+db.getCollectionInfos({name:"collection-name"})

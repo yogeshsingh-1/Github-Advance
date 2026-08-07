@@ -60,3 +60,46 @@ const cursor = studentCollection.find().batchSize(100); // control the batch of 
 const data = await cursor.toArray();
 
 console.log(data);
+
+// What does batchSize(5) do?
+
+// Many beginners think it will return only 5 documents, but that's not true.
+
+// batchSize(5) tells MongoDB:
+
+// "Send the results from the server to the client in batches of 5 documents."
+
+// If your collection contains 20 documents, here's what happens:
+
+// MongoDB Server
+// ┌──────────────────────────┐
+// │ 20 Documents             │
+// └──────────────────────────┘
+//           │
+//           ▼
+// Batch 1 → 5 docs
+// Batch 2 → 5 docs
+// Batch 3 → 5 docs
+// Batch 4 → 5 docs
+
+// If you want only 5 documents
+
+// Use limit() instead.
+
+const products = await productColllection
+  .find(
+    {},
+    {
+      projection: {
+        _id: 0,
+        title: 1,
+        price: 1,
+      },
+    },
+  )
+  .limit(5)
+  .toArray();
+
+console.log(products);
+
+
