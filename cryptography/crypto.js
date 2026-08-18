@@ -22,6 +22,6 @@ const algorithm = "SHA-1";
 const data = "update";
 console.log(crypto.createHash(algorithm).update(data).digest("hex"));
 console.log(crypto.createHash(algorithm).update(data).digest("hex").length / 2);
-
+console.log("algorithm");
 
 // 7a6e6a439dc689aeae4e04f542f1eda34b01ae3c
