@@ -1,0 +1,11 @@
+[
+  {
+    "ID": 30,
+    "Parent ID": 29,
+    "Path": "1.29.30",
+    "Account Name (indented)": "Temporary Opening",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "OPENING"
+  }
+]

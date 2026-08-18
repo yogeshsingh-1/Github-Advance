@@ -1,0 +1,59 @@
+[
+  {
+    "ID": 3,
+    "Parent ID": 2,
+    "Path": "1.2.3",
+    "Account Name (indented)": "Accounts Receivable",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 5,
+    "Parent ID": 2,
+    "Path": "1.2.5",
+    "Account Name (indented)": "Bank Accounts",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "BANK"
+  },
+  {
+    "ID": 6,
+    "Parent ID": 2,
+    "Path": "1.2.6",
+    "Account Name (indented)": "      - Cash In Hand",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 8,
+    "Parent ID": 2,
+    "Path": "1.2.8",
+    "Account Name (indented)": "Loans and Advances (Assets)",
+    "Nature": "ASSET",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 9,
+    "Parent ID": 2,
+    "Path": "1.2.9",
+    "Account Name (indented)": "Securities and Deposits",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 11,
+    "Parent ID": 2,
+    "Path": "1.2.11",
+    "Account Name (indented)": "Stock Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 13,
+    "Parent ID": 2,
+    "Path": "1.2.13",
+    "Account Name (indented)": "Tax Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  }
+]

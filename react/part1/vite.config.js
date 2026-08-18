@@ -4,6 +4,7 @@ import fs from "node:fs";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  mode: "development",
   server: {
     port: 5173, // React app runs on port 3000
     host: "0.0.0.0",
@@ -20,6 +21,11 @@ export default defineConfig({
       },
     },
     strictPort: true,
+
     // middlewareMode
   },
+  preview: {
+    port: 4000,
+    host: "0.0.0.0",
+  }
 });

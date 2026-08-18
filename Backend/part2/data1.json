@@ -1,0 +1,259 @@
+[
+  {
+    "ID": 1,
+    "Path": "1",
+    "Account Name (indented)": "Application of Funds (Assets)",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 2,
+    "Parent ID": 1,
+    "Path": "1.2",
+    "Account Name (indented)": "Current Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 3,
+    "Parent ID": 2,
+    "Path": "1.2.3",
+    "Account Name (indented)": "Accounts Receivable",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 4,
+    "Parent ID": 3,
+    "Path": "1.2.3.4",
+    "Account Name (indented)": "Debtors",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "RECEIVABLE"
+  },
+  {
+    "ID": 5,
+    "Parent ID": 2,
+    "Path": "1.2.5",
+    "Account Name (indented)": "Bank Accounts",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "BANK"
+  },
+  {
+    "ID": 6,
+    "Parent ID": 2,
+    "Path": "1.2.6",
+    "Account Name (indented)": "      - Cash In Hand",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 7,
+    "Parent ID": 6,
+    "Path": "1.2.6.7",
+    "Account Name (indented)": "Cash",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "CASH"
+  },
+  {
+    "ID": 8,
+    "Parent ID": 2,
+    "Path": "1.2.8",
+    "Account Name (indented)": "Loans and Advances (Assets)",
+    "Nature": "ASSET",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 9,
+    "Parent ID": 2,
+    "Path": "1.2.9",
+    "Account Name (indented)": "Securities and Deposits",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 10,
+    "Parent ID": 9,
+    "Path": "1.2.9.10",
+    "Account Name (indented)": "Earnest Money",
+    "Nature": "ASSET",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 11,
+    "Parent ID": 2,
+    "Path": "1.2.11",
+    "Account Name (indented)": "Stock Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 12,
+    "Parent ID": 11,
+    "Path": "1.2.11.12",
+    "Account Name (indented)": "Stock In Hand",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "STOCK"
+  },
+  {
+    "ID": 13,
+    "Parent ID": 2,
+    "Path": "1.2.13",
+    "Account Name (indented)": "Tax Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 14,
+    "Parent ID": 13,
+    "Path": "1.2.13.14",
+    "Account Name (indented)": "Input Tax CGST",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 15,
+    "Parent ID": 13,
+    "Path": "1.2.13.15",
+    "Account Name (indented)": "Input Tax SGST",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 16,
+    "Parent ID": 13,
+    "Path": "1.2.13.16",
+    "Account Name (indented)": "Input Tax IGST",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 17,
+    "Parent ID": 13,
+    "Path": "1.2.13.17",
+    "Account Name (indented)": "Input Tax CGST RCM",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 18,
+    "Parent ID": 13,
+    "Path": "1.2.13.18",
+    "Account Name (indented)": "Input Tax SGST RCM",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 19,
+    "Parent ID": 13,
+    "Path": "1.2.13.19",
+    "Account Name (indented)": "Input Tax IGST RCM",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 20,
+    "Parent ID": 1,
+    "Path": "1.20",
+    "Account Name (indented)": "Fixed Assets",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 21,
+    "Parent ID": 20,
+    "Path": "1.20.21",
+    "Account Name (indented)": "Accumulated Depreciations",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "ACCUM_DEPR"
+  },
+  {
+    "ID": 22,
+    "Parent ID": 20,
+    "Path": "1.20.22",
+    "Account Name (indented)": "Buildings",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 23,
+    "Parent ID": 20,
+    "Path": "1.20.23",
+    "Account Name (indented)": "Capital Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 24,
+    "Parent ID": 20,
+    "Path": "1.20.24",
+    "Account Name (indented)": "Electronic Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 25,
+    "Parent ID": 20,
+    "Path": "1.20.25",
+    "Account Name (indented)": "Furnitures and Fixtures",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 26,
+    "Parent ID": 20,
+    "Path": "1.20.26",
+    "Account Name (indented)": "Office Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 27,
+    "Parent ID": 20,
+    "Path": "1.20.27",
+    "Account Name (indented)": "Plants and Machineries",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 28,
+    "Parent ID": 1,
+    "Path": "1.28",
+    "Account Name (indented)": "Investments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 29,
+    "Parent ID": 1,
+    "Path": "1.29",
+    "Account Name (indented)": "Temporary Accounts",
+    "Nature": "ASSET",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 30,
+    "Parent ID": 29,
+    "Path": "1.29.30",
+    "Account Name (indented)": "Temporary Opening",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "OPENING"
+  }
+]

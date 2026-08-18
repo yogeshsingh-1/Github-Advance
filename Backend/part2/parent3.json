@@ -1,0 +1,11 @@
+[
+  {
+    "ID": 4,
+    "Parent ID": 3,
+    "Path": "1.2.3.4",
+    "Account Name (indented)": "Debtors",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "RECEIVABLE"
+  }
+]

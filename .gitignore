@@ -8,3 +8,6 @@ storage/
 *.jpg
 *.webp
 wanderlust/
+.env
+.env.development
+md-files/

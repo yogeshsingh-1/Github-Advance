@@ -1,0 +1,11 @@
+[
+  {
+    "ID": 7,
+    "Parent ID": 6,
+    "Path": "1.2.6.7",
+    "Account Name (indented)": "Cash",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "CASH"
+  }
+]

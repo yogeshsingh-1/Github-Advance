@@ -1,0 +1,167 @@
+[
+  {
+    "ID": 31,
+    "Path": "31",
+    "Account Name (indented)": "Source Of Funds (Liabilities)",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 32,
+    "Parent ID": 31,
+    "Path": "31.32",
+    "Account Name (indented)": "   - Capital Account",
+    "Nature": "CAPITAL",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 33,
+    "Parent ID": 32,
+    "Path": "31.32.33",
+    "Account Name (indented)": "      - Reserves and Surplus",
+    "Nature": "CAPITAL",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 34,
+    "Parent ID": 32,
+    "Path": "31.32.34",
+    "Account Name (indented)": "      - Shareholders Funds",
+    "Nature": "CAPITAL",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 35,
+    "Parent ID": 31,
+    "Path": "31.35",
+    "Account Name (indented)": "   - Current Liabilities",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 36,
+    "Parent ID": 35,
+    "Path": "31.35.36",
+    "Account Name (indented)": "      - Accounts Payable",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 37,
+    "Parent ID": 36,
+    "Path": "31.35.36.37",
+    "Account Name (indented)": "         - Creditors",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "PAYABLE"
+  },
+  {
+    "ID": 38,
+    "Parent ID": 36,
+    "Path": "31.35.36.38",
+    "Account Name (indented)": "         - Payroll Paybles",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 39,
+    "Parent ID": 35,
+    "Path": "31.35.39",
+    "Account Name (indented)": "      - Duties and Taxes",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 40,
+    "Parent ID": 39,
+    "Path": "31.35.39.40",
+    "Account Name (indented)": "         - Output Tax SGST",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 41,
+    "Parent ID": 39,
+    "Path": "31.35.39.41",
+    "Account Name (indented)": "         - Output Tax CGST",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 42,
+    "Parent ID": 39,
+    "Path": "31.35.39.42",
+    "Account Name (indented)": "         - Output Tax IGST",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 43,
+    "Parent ID": 39,
+    "Path": "31.35.39.43",
+    "Account Name (indented)": "         - TDS",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 44,
+    "Parent ID": 39,
+    "Path": "31.35.39.44",
+    "Account Name (indented)": "         - TDS Payable",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE",
+    "Role": "GST"
+  },
+  {
+    "ID": 45,
+    "Parent ID": 35,
+    "Path": "31.35.45",
+    "Account Name (indented)": "      - Loans (Liabilities)",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 46,
+    "Parent ID": 45,
+    "Path": "31.35.45.46",
+    "Account Name (indented)": "         - Bank Overdraft Account",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 47,
+    "Parent ID": 45,
+    "Path": "31.35.45.47",
+    "Account Name (indented)": "         - Secured Loans",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 48,
+    "Parent ID": 45,
+    "Path": "31.35.45.48",
+    "Account Name (indented)": "         - Unsecured Loans",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE"
+  },
+  {
+    "ID": 49,
+    "Parent ID": 35,
+    "Path": "31.35.49",
+    "Account Name (indented)": "      - Stock Liabilities",
+    "Nature": "LIABILITY",
+    "Is Group": "TRUE"
+  },
+  {
+    "ID": 50,
+    "Parent ID": 49,
+    "Path": "31.35.49.50",
+    "Account Name (indented)": "         - Stock Received But Not Billed",
+    "Nature": "LIABILITY",
+    "Is Group": "FALSE"
+  }
+]

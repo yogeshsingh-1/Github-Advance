@@ -1,0 +1,65 @@
+[
+  {
+    "ID": 21,
+    "Parent ID": 20,
+    "Path": "1.20.21",
+    "Account Name (indented)": "Accumulated Depreciations",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "ACCUM_DEPR"
+  },
+  {
+    "ID": 22,
+    "Parent ID": 20,
+    "Path": "1.20.22",
+    "Account Name (indented)": "Buildings",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 23,
+    "Parent ID": 20,
+    "Path": "1.20.23",
+    "Account Name (indented)": "Capital Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 24,
+    "Parent ID": 20,
+    "Path": "1.20.24",
+    "Account Name (indented)": "Electronic Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 25,
+    "Parent ID": 20,
+    "Path": "1.20.25",
+    "Account Name (indented)": "Furnitures and Fixtures",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 26,
+    "Parent ID": 20,
+    "Path": "1.20.26",
+    "Account Name (indented)": "Office Equipments",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  },
+  {
+    "ID": 27,
+    "Parent ID": 20,
+    "Path": "1.20.27",
+    "Account Name (indented)": "Plants and Machineries",
+    "Nature": "ASSET",
+    "Is Group": "FALSE",
+    "Role": "FIXED_ASSET"
+  }
+]
