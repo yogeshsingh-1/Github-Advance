@@ -1,5 +1,9 @@
-import crypto from "node:crypto";
+import crypto, { argon2 } from "node:crypto";
 import fs from "node:fs";
+import { argv, argv0 } from "node:process";
+console.log(argv);
+console.log(argv0);
+console.log(argon2("argon2d"))
 // const data = "Hello World";
 // const hash = crypto.createHash("sha256").update(data).digest("hex");
 // class CryptoExtend extends crypto {}
@@ -11,15 +15,15 @@ import fs from "node:fs";
 // });
 // console.log(CryptoExtend.createHash("sha256").update(data).digest("hex"));
 // console.log(CryptoExtend.target);
-// const data = fs.readFileSync(
-//   "C:/Users/dell/Downloads/VSCodeUserSetup-arm64-1.133.0.exe",
-// );
-// const key = crypto.createHash("SHA-256").update(data).digest("hex");
-// console.log(key);
+const data = fs.readFileSync(
+  "C:/Users/dell/Downloads/VSCodeUserSetup-arm64-1.133.0.exe",
+);
+const key = crypto.createHash("SHA-256").update(data).digest("hex");
+console.log(key);
 
 //
 const algorithm = "SHA-1";
-const data = "update";
+// const data = "update";
 console.log(crypto.createHash(algorithm).update(data).digest("hex"));
 console.log(crypto.createHash(algorithm).update(data).digest("hex").length / 2);
 console.log("algorithm");
