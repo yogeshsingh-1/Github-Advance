@@ -19,3 +19,4 @@ export interface Jwt {
 # JWT mai sign method hai string return karta hai.
 
 # JWT method mai verify ki return value iat and exp time seconds mai aata. miliseconds mai nhi aata hai.
+Ishe new Date ke iat and exp time ko 1000 se multiply karke actual time nikal skte hai. 
