@@ -206,6 +206,11 @@ Jis element par handler laga hai
 
 `dataTransfer` Drag and Drop ka bahut important part hai.
 
+Iske andar 2 properties hoti hai jaise
+
+- dropEffect: "none" | "copy" | "link" | "move"
+- effectAllowed: "uninitialized" | "copy" | "link" | "move"
+
 Iska use drag ke time data store karne aur drop ke time data retrieve karne ke liye hota hai.
 
 ```js

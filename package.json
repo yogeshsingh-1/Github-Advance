@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "@types/node": "^25.8.0",
+    "bcrypt": "^6.0.0",
     "dayjs": "^1.11.21",
     "ejs": "^6.0.1",
     "express": "^4.22.2",
