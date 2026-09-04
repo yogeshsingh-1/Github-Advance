@@ -10,4 +10,4 @@ Depending on the implmentation, this identifier either.
 1. Reference session data stored on the server (stateful)
 2. Contains all necessary information itself (stateless)
 
-enabling the server to recognize and maintain continutoy for the user's interactions 
+enabling the server to recognize and maintain continutoy for the user's interactions
