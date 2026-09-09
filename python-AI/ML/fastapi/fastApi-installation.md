@@ -35,6 +35,12 @@ venv Python ka built-in tool hai jo project ke liye isolated environment create 
 ## Create venv
 python -m venv venv
 
+# Apne virtual environment ko activate karein
+# Agar Windows mein:
+venv\Scripts\activate
+# Agar Mac/Linux mein:
+source venv/bin/activate
+
 python      → Python interpreter
 -m venv     → venv module run karo
 venv        → environment ka naam
