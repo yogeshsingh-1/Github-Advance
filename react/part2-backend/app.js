@@ -7,6 +7,7 @@ import crypto from "node:crypto";
 // import { createWriteStream, createReadStream } from "node:fs";
 import cookieParser from "cookie-parser";
 import Session from "./models/SessionModel.js";
+import { argv, argv0 } from "node:process";
 const app = express();
 // app.use(
 //   session({
@@ -72,6 +73,13 @@ app.get("/", (req, res) => {
     return res.end();
   });
 });
+console.log(process.env.Environment);
+// console.log(argv0);
+// console.log(argv);
+console.log(app.settings.env)
+console.log(process.env.NODE_ENV);
+console.log(process.argv);
+console.log(process.versions)
 app.listen(3000, "0.0.0.0", () => {
   console.log(`server is listening on port 3000`);
 });

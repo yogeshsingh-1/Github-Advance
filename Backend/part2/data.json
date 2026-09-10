@@ -1,0 +1,55 @@
+[
+  { "Code": "PPAY108", "Message": "Payment Doc. Date is required." },
+  { "Code": "PPAY109", "Message": "Payment Doc. No. is required." },
+  { "Code": "PPAY110", "Message": "Supplier Name is required." },
+  { "Code": "PPAY111", "Message": "Payment Amount  is required." },
+  { "Code": "PPAY112", "Message": "Payment Date is required." },
+  { "Code": "PPAY113", "Message": "Invoice Number is required." },
+  { "Code": "PPAY114", "Message": "Payment Made On is required." },
+  {
+    "Code": "PPAY115",
+    "Message": "Payment Made On cannot be earlier than the Payment Date."
+  },
+  { "Code": "PPAY116", "Message": "Allocated Amount is required." },
+  {
+    "Code": "PPAY117",
+    "Message": "Payment amount cannot be greater than the due amount."
+  },
+  {
+    "Code": "PPAY118",
+    "Message": "Total Allocated Amount cannot exceed Payment Amount."
+  },
+  { "Code": "PPAY101", "Message": "Payment Doc. No. already exists." },
+  {
+    "Code": "PPAY102",
+    "Message": "The selected supplier is already in use and cannot be deleted."
+  },
+  {
+    "Code": "PPAY103",
+    "Message": "The selected bank is already in use and cannot be deleted."
+  },
+  {
+    "Code": "PPAY104",
+    "Message": "The selected template is already in use and cannot be deleted."
+  },
+  {
+    "Code": "PPAY106",
+    "Message": "Payments have already been recorded for this invoice and it cannot be deleted."
+  },
+  { "Code": "PPAY119", "Message": "Payment Mode is required." },
+  { "Code": "PPAY120", "Message": "Payment Type is required." },
+  {
+    "Code": "PPAY121",
+    "Message": "Allocated Amount cannot exceed Balance Due."
+  },
+  {
+    "Code": "PPAY122",
+    "Message": "Payment Doc. Date cannot exceed Current Date."
+  },
+  {
+    "Code": "PPAY123",
+    "Message": "Payment Date cannot be before Payment Doc. Date."
+  },
+  { "Code": "PPAY124", "Message": "Allocated Amount must be greater than 0." },
+  { "Code": "PPAY125", "Message": "Payment Amount must be greater than 0." }
+]
