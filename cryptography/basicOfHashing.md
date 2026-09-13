@@ -13,7 +13,7 @@ Isme same input hume same output deta hai.
 
 # Why is Hashing Used?
 
-1. Checksum function file ka hash generate karke original aur current hash compare karta hai, jisse pata chalta hai file altered hai ya nahi.(file checksums)
+1.11111111111111
 2. Hashes are using in version control like commits(GitHub).
 3. Password Protection.
 4. Blockchain and Cryptocurrencies -> 

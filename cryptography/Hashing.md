@@ -972,7 +972,7 @@ A keyed construction that uses a cryptographic hash and secret key to authentica
 
 ---
 
-## Q9. What is a checksum?
+## Q9. What is a ?
 
 A value derived from data that can be used to detect accidental or intentional changes, depending on the checksum algorithm.
 
