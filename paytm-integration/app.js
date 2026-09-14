@@ -16,6 +16,10 @@ console.log(process.cwd());
 console.log(process.constrainedMemory());
 console.log(process.availableMemory() / (1024 * 1024 * 1024));
 // console.log(process.dlopen())
+const pid = process.pid;
+console.log("processId", process.pid);
+// process.kill(pid)
+console.log(process.memoryUsage())
 
 dotenv.configDotenv({
   path: path.resolve(import.meta.dirname, ".env.development"),
@@ -33,6 +37,6 @@ app.listen(8000, () => {
 });
 // Ye batata hai ki CPU ne user-level code execute karne mein kitna CPU time spend kiya.
 
-console.log(process.cpuUsage().user);
-// Yaani Node.js ke JavaScript/application code ko execute karne mein CPU ne approximately 12 ms spend kiye.
-console.log(process.cpuUsage().system);
+// console.log(process.cpuUsage().user);
+// // Yaani Node.js ke JavaScript/application code ko execute karne mein CPU ne approximately 12 ms spend kiye.
+// console.log(process.cpuUsage().system);

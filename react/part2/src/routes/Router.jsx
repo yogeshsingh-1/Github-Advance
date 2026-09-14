@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout";
 import Product from "../components/Product";
 import Cart from "../components/Cart";
+import PaymentResult from "../components/PaymentResult";
 
 const Router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const Router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/payment-result",
+        element: <PaymentResult />,
       },
     ],
   },

@@ -19,9 +19,14 @@ function Navbar() {
           <Link to="/cart" className="relative text-center">
             Cart
             {cartCourse.length > 0 && (
-              <span className="bg-red-700/80 absolute -right-5 -top-2  size-5 rounded-lg left z-50 shadow-xl text-white  text-sm">
+              <span className="bg-red-700/80 absolute -right-5 -top-2  size-5 rounded-lg left z-50 shadow-xl   text-sm text-white">
                 {cartCourse.length}
               </span>
+
+              // <span class=" flex size-3 absolute -right-5 -top-2  size-5 rounded-lg left z-50 shadow-xl text-white  text-sm ">
+              //   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"> {cartCourse.length}</span>
+              //   <span className="relative inline-flex size-3 rounded-full bg-sky-500"></span>
+              // </span>
             )}
           </Link>
         </div>

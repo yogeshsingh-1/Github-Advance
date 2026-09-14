@@ -49,3 +49,11 @@ npm install paytm-pg-node-sdk paytmchecksum
 Aur React frontend mein paytm-pg-node-sdk install mat karna. SDK/API secret credentials backend par rahenge. Human beings ne payment credentials frontend mein daalne ki galti already kaafi baar ki hai, humein us glorious tradition ko continue nahi karna.
 
 Tumhare Node + TypeScript + Express project ke liye next step directly paytm-pg-node-sdk se Initiate Transaction API implement karna hai.
+
+
+# Understanding account credentials
+Account credentials are available in your dashboard for both staging and production environments. These credentials consist of the following:
+
+MID (Merchant ID) - This is a unique identifier provided by Paytm to every merchant. MID is part of your account credentials and is different in staging and production environments. Your staging MID is available here and production MID will be available once your activation is complete.
+
+Merchant Key - This is a unique secret key used for secure encryption of every request. This needs to be kept on server-side and should not be shared with anyone.
