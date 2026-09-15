@@ -4,6 +4,7 @@ import axios from "axios";
 import PaytmChecksum from "paytmchecksum";
 import PaymentTransaction from "../models/PaytmTransactionModel.js";
 import PaymentCallback from "../models/PaymentCallbackModel.js";
+import Razorpay from "razorpay";
 // export default class PaymentController {
 
 //   Mid = "Resell00448805757124";
@@ -63,13 +64,39 @@ import PaymentCallback from "../models/PaymentCallbackModel.js";
 
 // MID: pFlPqO65242180644612
 // Test Key: pLQiACAYVH7Urbal
+
+// test-apiKey = rzp_test_TcQQ44qPAyI5QD
+// test-apiKeySecret = NDYsYge0yP5uT40V0DY28ubS
 export default class PaymentController {
   Mid = "Resell00448805757124";
   Key = "KXHUJH&Ywq9pUkkr";
   Website = "WEBSTAGING";
+  // Razorpay apiKey and apiSecret
+  testApiKey = "rzp_test_TcQQ44qPAyI5QD";
+  testApiKeySecret = "NDYsYge0yP5uT40V0DY28ubS";
   // Mid = "pFlPqO65242180644612";
   // Key = "pLQiACAYVH7Urbal";
   // Website = "WEBSTAGING";
+
+  // https://github.com/razorpay/razorpay-node/releases/
+  createRazorPayMentOrder = async (req, res) => {
+    try {
+      const razorpay = new Razorpay({
+        key_id: this.testApiKey,
+        key_secret: this.testApiKeySecret,
+      });
+      var options = {
+        amount: 50000, // Amount is in currency subunits.
+        currency: "INR",
+        receipt: "order_rcptid_11",
+      };
+      razorpay.orders.create(options, function (err, order) {
+        console.log(order);
+      });
+    } catch (e) {
+      throw e;
+    }
+  };
 
   createOrder = async (req, res) => {
     try {
@@ -84,7 +111,8 @@ export default class PaymentController {
       }
 
       const finalAmount = Number(amount);
-
+      console.log("MID:", this.Mid);
+      console.log("KEY EXISTS:", !!this.Key);
       // 2. Generate our internal order ID
       const orderId = `ORD_${Date.now()}`;
 
@@ -110,7 +138,7 @@ export default class PaymentController {
         mid: this.Mid,
         websiteName: "WEBSTAGING",
         orderId,
-        callbackUrl: "http://localhost:3000/paytm/callback",
+        // callbackUrl: "http://localhost:3000/paytm/callback",
         txnAmount: {
           value: finalAmount.toFixed(2),
           currency: "INR",
@@ -125,7 +153,7 @@ export default class PaymentController {
        */
       const signature = await PaytmChecksum.generateSignature(
         JSON.stringify(body),
-        this.Key,
+        this.Key
       );
       // o5j5zVOQAf1TewSDcEUSt8iYkFGnkK0OiUQGnzyyaVI880owVJa48U4CuTbHq0MSTdXBaXb2J35nY9jGIXmBmp0aANosFMw5xdHKxC8I7o8=
 
@@ -153,7 +181,7 @@ export default class PaymentController {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       console.log("Paytm Response:", response.data);
@@ -227,7 +255,7 @@ export default class PaymentController {
       const isVerifySignature = PaytmChecksum.verifySignature(
         callbackData,
         this.Key,
-        paytmChecksum,
+        paytmChecksum
       );
 
       if (!isVerifySignature) {
@@ -242,7 +270,7 @@ export default class PaymentController {
               responseMessage: "Invalid Paytm checksum",
               callbackReceivedAt: new Date(),
             },
-          },
+          }
         );
 
         return res.status(400).json({
@@ -288,11 +316,11 @@ export default class PaymentController {
               responseMessage: "Payment amount mismatch. Refund initiated.",
               callbackReceivedAt: new Date(),
             },
-          },
+          }
         );
 
         return res.redirect(
-          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`,
+          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`
         );
       }
       // 4. Insert PaymentTransaction
@@ -341,7 +369,7 @@ export default class PaymentController {
 
             callbackReceivedAt: new Date(),
           },
-        },
+        }
       );
 
       // 6. Store callback for audit/debugging
@@ -383,7 +411,7 @@ export default class PaymentController {
       });
 
       return res.redirect(
-        `http://localhost:5173/payment-result?${queryParams.toString()}`,
+        `http://localhost:5173/payment-result?${queryParams.toString()}`
       );
     } catch (error) {
       console.error("Paytm callback error:", error);
