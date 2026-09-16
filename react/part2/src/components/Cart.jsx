@@ -52,22 +52,34 @@ const Cart = () => {
           orderId,
           token: txnToken,
           tokenType: "TXN_TOKEN",
-          amount: paymentAmount.toString(),
+          amount: String(paymentAmount),
         },
-
+        // merchant: {
+        //   mid: "Resell00448805757124",
+        //   redirect: false,
+        // },
         handler: {
-          notifyMerchant: (eventName, data) => {
+          transactionStatus: function (paymentStatus) {
+            console.log("Transaction Status:", paymentStatus);
+          },
+
+          notifyMerchant: function (eventName, data) {
             console.log("Paytm Event:", eventName);
             console.log("Paytm Data:", data);
           },
         },
       };
+      debugger;
+
+      console.log(config);
 
       // 4. Initialize Paytm Checkout
       await window.Paytm.CheckoutJS.init(config);
 
       // 5. Open Paytm Checkout
       window.Paytm.CheckoutJS.invoke();
+
+      // }
     } catch (error) {
       console.error(
         "Paytm Payment Error:",
@@ -155,3 +167,34 @@ const Cart = () => {
 };
 
 export default Cart;
+
+// var config = {
+//   root: "",
+//   flow: "DEFAULT",
+//   data: {
+//     orderId: "" /* update order id */,
+//     token: "" /* update token value */,
+//     tokenType: "TXN_TOKEN",
+//     amount: "" /* update amount */,
+//   },
+//   handler: {
+//     notifyMerchant: function (eventName, data) {
+//       console.log("notifyMerchant handler function called");
+//       console.log("eventName => ", eventName);
+//       console.log("data => ", data);
+//     },
+//   },
+// };
+// if (window.Paytm && window.Paytm.CheckoutJS) {
+//   window.Paytm.CheckoutJS.onLoad(function excecuteAfterCompleteLoad() {
+//     // initialze configuration using init method
+//     window.Paytm.CheckoutJS.init(config)
+//       .then(function onSuccess() {
+//         // after successfully updating configuration, invoke JS Checkout
+//         window.Paytm.CheckoutJS.invoke();
+//       })
+//       .catch(function onError(error) {
+//         console.log("error => ", error);
+//       });
+//   });
+// }

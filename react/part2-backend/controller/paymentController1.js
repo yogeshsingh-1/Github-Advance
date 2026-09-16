@@ -133,14 +133,15 @@ export default class PaymentController {
       /*
        * 5. Create Paytm request body
        */
+      console.log(finalAmount.toString());
       const body = {
         requestType: "Payment",
         mid: this.Mid,
         websiteName: "WEBSTAGING",
         orderId,
-        callbackUrl: "http://localhost:3000/paytm/callback",
+        // callbackUrl: "http://localhost:3000/paytm/callback",
         txnAmount: {
-          value: `${finalAmount.toFixed(2)}`,
+          value: finalAmount.toFixed(2), // paytm accept a number in 2 decmial place
           currency: "INR",
         },
         userInfo: {
@@ -212,14 +213,11 @@ export default class PaymentController {
        * 11. Send only required information to frontend
        */
       return res.status(200).json({
-        success: true,
-
-        paymentOrderId: paymentOrder._id,
-
-        orderId,
-
-        amount: finalAmount.toFixed(2),
-        txnToken,
+        Success: true,
+        PaymentOrderId: paymentOrder._id,
+        OrderId: orderId,
+        Amount: finalAmount.toFixed(2),
+        TxnToken: txnToken,
       });
     } catch (error) {
       console.error("Create payment order error:", error);
