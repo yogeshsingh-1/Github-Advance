@@ -4,15 +4,15 @@ import { ShoppingCart } from "lucide-react";
 import { CourseContext } from "../context/ProductContext";
 import { DeleteIcon } from "lucide-react";
 import axiosInstance from "../utils/axios";
-import axios from "axios";
 const Cart = () => {
   const { cartCourse, setCartCourse } = useContext(CourseContext);
   const [courseData, setCourseData] = useState([]);
   console.log(cartCourse);
+  const [payMethod, setPaymethod] = useState(false);
   const getCourseData = async () => {
     try {
       const { data } = await axiosInstance.get(
-        `/course/${cartCourse.join(",")}`,
+        `/course/${cartCourse.join(",")}`
       );
       console.log(data);
       setCourseData(data.data);
@@ -22,12 +22,14 @@ const Cart = () => {
   };
   console.log(courseData);
 
-  const createOrder = async () => {
+  const createOrder = async (e) => {
     try {
+      console.log(e);
+      console.log(e.target.textContent);
       // 1. Calculate total amount
       const amount = courseData.reduce(
         (total, item) => total + Number(item.price),
-        0,
+        0
       );
 
       if (amount <= 0) {
@@ -83,10 +85,11 @@ const Cart = () => {
     } catch (error) {
       console.error(
         "Paytm Payment Error:",
-        error.response?.data || error.message,
+        error.response?.data || error.message
       );
     }
   };
+  console.log(payMethod);
 
   useEffect(() => {
     // console.log("product mount");
@@ -99,8 +102,15 @@ const Cart = () => {
       console.log("product unmount");
     };
   }, [cartCourse]);
+  // if (payMethod) {
+  //   return (
+  //     <>
+
+  //     </>
+  //   );
+  // }
   return (
-    <div className="w-full h-[calc(100vh-70px)] py-5 px-20 bg-gray-100 overflow-hidden">
+    <div className="w-full h-[calc(100vh-70px)] py-5 px-20 bg-gray-100 ">
       <div className="text-2xl font-semibold ">Your Cart</div>
       {/* Middle Div */}
       <div className="mt-6 h-[55vh] overflow-y-auto scrollbar-hide rounded-md  bg-zinc-200/40">
@@ -136,7 +146,7 @@ const Cart = () => {
                   className="hover:text-white hover:bg-black/80  p-1 rounded-lg duration-300 ease-in-out"
                   onClick={() => {
                     setCartCourse((prev) =>
-                      prev.filter((id) => id !== item._id),
+                      prev.filter((id) => id !== item._id)
                     );
                   }}
                 >
@@ -155,12 +165,58 @@ const Cart = () => {
       {cartCourse.length ? (
         <div
           className="mt-10 text-center bg-zinc-400/50 py-2 rounded-md font-semibold tracking-tighter text-md"
-          onClick={createOrder}
+          onClick={() => setPaymethod(true)}
         >
           <button>Proceed To CheckOut</button>
         </div>
       ) : (
         ""
+      )}
+      {payMethod && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs">
+          <div className="w-[360px] rounded-xl bg-white p-6 shadow-2xl">
+            <h2 className="text-lg font-semibold text-gray-800 text-center">
+              Choose Your Payment Method
+            </h2>
+
+            <p className="mt-1 text-sm text-gray-500 text-center">
+              Select a payment gateway to continue
+            </p>
+
+            <div className="flex gap-3 mt-6" onClick={createOrder}>
+              <button
+                className="
+            flex-1 py-3 rounded-lg
+            border border-gray-300
+            text-sm font-semibold text-gray-700
+            hover:bg-gray-100
+            transition
+          "
+              >
+                Razorpay
+              </button>
+
+              <button
+                className="
+            flex-1 py-3 rounded-lg
+            border border-gray-300
+            text-sm font-semibold text-gray-700
+            hover:bg-gray-100
+            transition
+          "
+              >
+                Paytm
+              </button>
+            </div>
+
+            <button
+              onClick={() => setPaymethod(false)}
+              className="w-full mt-4 text-sm text-gray-500 hover:text-gray-800"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

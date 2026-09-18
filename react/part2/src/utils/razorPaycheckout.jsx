@@ -1,0 +1,31 @@
+function razorPayCheckOut() {
+  try {
+    var options = {
+      key: "rzp_test_TcQQ44qPAyI5QD", // Enter the Key ID generated from the Dashboard
+      amount: "50000", // Amount is in currency subunits.
+      currency: "USD",
+      name: "Acme Corp", //your business name
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: "order_9A33XWu170gUtm", // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:3000/razorpay/callback",
+      prefill: {
+        //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+        name: "<name>", //your customer's name
+        email: "<email>",
+        contact: "<phone>", //Provide the customer's phone number for better conversion rates
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById("rzp-button1").onclick = function (e) {
+      rzp1.open();
+      e.preventDefault();
+    };
+  } catch (e) {}
+}

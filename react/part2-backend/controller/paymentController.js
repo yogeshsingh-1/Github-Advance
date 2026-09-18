@@ -72,8 +72,8 @@ export default class PaymentController {
   Key = "KXHUJH&Ywq9pUkkr";
   Website = "WEBSTAGING";
   // Razorpay apiKey and apiSecret
-  testApiKey = "rzp_test_TcQQ44qPAyI5QD";
-  testApiKeySecret = "NDYsYge0yP5uT40V0DY28ubS";
+  razorpayApiKey = "rzp_test_TcQQ44qPAyI5QD";
+  razorpayApiKeySecret = "NDYsYge0yP5uT40V0DY28ubS";
   // Mid = "pFlPqO65242180644612";
   // Key = "pLQiACAYVH7Urbal";
   // Website = "WEBSTAGING";
@@ -82,17 +82,18 @@ export default class PaymentController {
   createRazorPayMentOrder = async (req, res) => {
     try {
       const razorpay = new Razorpay({
-        key_id: this.testApiKey,
-        key_secret: this.testApiKeySecret,
+        key_id: this.razorpayApiKey,
+        key_secret: this.razorpayApiKeySecret,
       });
       var options = {
         amount: 50000, // Amount is in currency subunits.
         currency: "INR",
         receipt: "order_rcptid_11",
+        method: "netbanking" | "upi" | "card" | "emandate" | "nach",
       };
-      razorpay.orders.create(options, function (err, order) {
-        console.log(order);
-      });
+      const razorpayOrder = await razorpay.orders.create(options);
+      const { id, amount_paid, status, token } = razorpayOrder;
+      return { id, amount_paid, status, token };
     } catch (e) {
       throw e;
     }
@@ -153,7 +154,7 @@ export default class PaymentController {
        */
       const signature = await PaytmChecksum.generateSignature(
         JSON.stringify(body),
-        this.Key,
+        this.Key
       );
       // o5j5zVOQAf1TewSDcEUSt8iYkFGnkK0OiUQGnzyyaVI880owVJa48U4CuTbHq0MSTdXBaXb2J35nY9jGIXmBmp0aANosFMw5xdHKxC8I7o8=
 
@@ -181,7 +182,7 @@ export default class PaymentController {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       console.log("Paytm Response:", response.data);
@@ -254,7 +255,7 @@ export default class PaymentController {
       const isVerifySignature = PaytmChecksum.verifySignature(
         callbackData,
         this.Key,
-        paytmChecksum,
+        paytmChecksum
       );
 
       if (!isVerifySignature) {
@@ -269,7 +270,7 @@ export default class PaymentController {
               responseMessage: "Invalid Paytm checksum",
               callbackReceivedAt: new Date(),
             },
-          },
+          }
         );
 
         return res.status(400).json({
@@ -315,11 +316,11 @@ export default class PaymentController {
               responseMessage: "Payment amount mismatch. Refund initiated.",
               callbackReceivedAt: new Date(),
             },
-          },
+          }
         );
 
         return res.redirect(
-          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`,
+          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`
         );
       }
       // 4. Insert PaymentTransaction
@@ -368,7 +369,7 @@ export default class PaymentController {
 
             callbackReceivedAt: new Date(),
           },
-        },
+        }
       );
 
       // 6. Store callback for audit/debugging
@@ -410,7 +411,7 @@ export default class PaymentController {
       });
 
       return res.redirect(
-        `http://localhost:5173/payment-result?${queryParams.toString()}`,
+        `http://localhost:5173/payment-result?${queryParams.toString()}`
       );
     } catch (error) {
       console.error("Paytm callback error:", error);
