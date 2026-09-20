@@ -65,12 +65,12 @@ const paymentTransactionSchema = new Schema(
     },
 
     // User who made the payment
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-      index: true,
-    },
+    // userId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    //   index: true,
+    // },
 
     // Payment gateway
     gateway: {

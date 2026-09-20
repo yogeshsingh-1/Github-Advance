@@ -4,6 +4,8 @@ import { ShoppingCart } from "lucide-react";
 import { CourseContext } from "../context/ProductContext";
 import { DeleteIcon } from "lucide-react";
 import axiosInstance from "../utils/axios";
+import paytmCheckout from "../utils/paytmCheckOut";
+import razorPayCheckOut from "../utils/razorPaycheckout";
 const Cart = () => {
   const { cartCourse, setCartCourse } = useContext(CourseContext);
   const [courseData, setCourseData] = useState([]);
@@ -37,51 +39,10 @@ const Cart = () => {
         return;
       }
 
-      // 2. Create payment order on backend
-      const response = await axiosInstance.post("/paytm/createOrder", {
-        amount,
-      });
-
-      const { orderId, txnToken, amount: paymentAmount } = response.data;
-
-      // 3. Prepare Paytm Checkout configuration
-      const config = {
-        root: "",
-
-        flow: "DEFAULT",
-
-        data: {
-          orderId,
-          token: txnToken,
-          tokenType: "TXN_TOKEN",
-          amount: String(paymentAmount),
-        },
-        // merchant: {
-        //   mid: "Resell00448805757124",
-        //   redirect: false,
-        // },
-        handler: {
-          transactionStatus: function (paymentStatus) {
-            console.log("Transaction Status:", paymentStatus);
-          },
-
-          notifyMerchant: function (eventName, data) {
-            console.log("Paytm Event:", eventName);
-            console.log("Paytm Data:", data);
-          },
-        },
-      };
       debugger;
-
-      console.log(config);
-
-      // 4. Initialize Paytm Checkout
-      await window.Paytm.CheckoutJS.init(config);
-
-      // 5. Open Paytm Checkout
-      window.Paytm.CheckoutJS.invoke();
-
-      // }
+      if (e.target.textContent === "Razorpay") {
+        await razorPayCheckOut(e, amount);
+      } else await paytmCheckout(amount);
     } catch (error) {
       console.error(
         "Paytm Payment Error:",

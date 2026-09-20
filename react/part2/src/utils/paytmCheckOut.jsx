@@ -1,5 +1,13 @@
-async function paytmCheckout() {
+import axiosInstance from "./axios";
+async function paytmCheckout(amount) {
   try {
+    debugger;
+    // 2. Create payment order on backend
+    const response = await axiosInstance.post("/payment/paytm/createOrder", {
+      amount,
+    });
+    const { orderId, txnToken, amount: paymentAmount } = response.data;
+    debugger;
     // 3. Prepare Paytm Checkout configuration
     const config = {
       root: "",
@@ -12,9 +20,22 @@ async function paytmCheckout() {
         tokenType: "TXN_TOKEN",
         amount: String(paymentAmount),
       },
-      // merchant: {
-      //   mid: "Resell00448805757124",
-      //   redirect: false,
+      // payMode: {
+      //   order: ["UPI", "CARD"],
+      //   //  order: ["UPI", "CARD", "NET_BANKING","WALLET","EMI"],
+      // },
+      // payMode: {
+      //   filter: {
+      //     include: ["UPI", "CARD"],
+      //     exclude: ["NET_BANKING"],
+      //   },
+      //   order: ["UPI", "CARD"],
+      // },
+      // payMode: {
+      //   filter: {
+      //     exclude: ["NET_BANKING", "EMI"],
+      //   },
+      //   order: ["UPI", "CARD"],
       // },
       handler: {
         transactionStatus: function (paymentStatus) {
@@ -28,7 +49,7 @@ async function paytmCheckout() {
       },
     };
 
-    console.log(config);
+    // console.log(config);
 
     // 4. Initialize Paytm Checkout
     await window.Paytm.CheckoutJS.init(config);
@@ -42,3 +63,5 @@ async function paytmCheckout() {
     );
   }
 }
+
+export default paytmCheckout;

@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", courseRouter);
-app.use("/paytm", paytmRouter);
+app.use("/payment", paytmRouter);
 // app.use("/")
 // app.get("/", (req, res) => {
 //   const fileName = "./package-lock.json";

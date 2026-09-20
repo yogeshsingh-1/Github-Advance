@@ -81,25 +81,49 @@ export default class PaymentController {
   // https://github.com/razorpay/razorpay-node/releases/
   createRazorPayMentOrder = async (req, res) => {
     try {
+      const bodyAmount = req.body.amount;
+
+      // 1. Validate amount
+      if (!bodyAmount || Number(bodyAmount) <= 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid amount",
+        });
+      }
+
+      const finalAmount = Math.round(Number(bodyAmount) * 100);
+
       const razorpay = new Razorpay({
         key_id: this.razorpayApiKey,
         key_secret: this.razorpayApiKeySecret,
       });
       var options = {
-        amount: 50000, // Amount is in currency subunits.
+        amount: finalAmount, // Amount is in currency subunits.
         currency: "INR",
         receipt: "order_rcptid_11",
-        method: "netbanking" | "upi" | "card" | "emandate" | "nach",
+        // method: "netbanking" | "upi" | "card" | "emandate" | "nach",
       };
       const razorpayOrder = await razorpay.orders.create(options);
-      const { id, amount_paid, status, token } = razorpayOrder;
-      return { id, amount_paid, status, token };
+      // const { id, amount, status, token } = razorpayOrder;
+      return res
+        .status(200)
+        .json({
+          success: true,
+          id: razorpayOrder.id,
+          amount: razorpayOrder.amount,
+          currency: razorpayOrder.currency,
+          status: razorpayOrder.status,
+        });
     } catch (e) {
       throw e;
     }
   };
 
-  createOrder = async (req, res) => {
+  //   Card Number: 4111 1111 1111 1111
+  // Expiry:      12/30
+  // CVV:         123
+
+  createPaytmPaymentOrder = async (req, res) => {
     try {
       const { amount } = req.body;
 
@@ -147,6 +171,8 @@ export default class PaymentController {
         userInfo: {
           custId,
         },
+        // enablePaymentMode: [{ mode: "UPI", channels: ["UPIPUSH"] },
+        // ],
       };
 
       /*
@@ -173,7 +199,10 @@ export default class PaymentController {
       /*
        * 8. Call Paytm Initiate Transaction API
        */
-      const PAYTM_INITIATE_TRANSACTION_URL = `https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=${this.Mid}&orderId=${orderId}`;
+      // https://securestage.paytmpayments.com/theia/api/v1/initiateTransaction
+      const url =
+        "https://securestage.paytmpayments.com/theia/api/v1/initiateTransaction";
+      const PAYTM_INITIATE_TRANSACTION_URL = `${url}?mid=${this.Mid}&orderId=${orderId}`;
 
       const response = await axios.post(
         PAYTM_INITIATE_TRANSACTION_URL,
@@ -329,8 +358,8 @@ export default class PaymentController {
         paymentOrderId: order._id,
 
         // Agar userId PaymentOrder mein hai
-        userId: order.userId,
-
+        // userId: order.userId,
+        orderId: ORDERID,
         gateway: "PAYTM",
 
         gatewayTransactionId: TXNID,
