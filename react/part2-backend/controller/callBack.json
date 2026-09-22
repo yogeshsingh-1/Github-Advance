@@ -10,7 +10,7 @@
     "RESPCODE": "01",
     "RESPMSG": "Txn Success",
     "STATUS": "TXN_SUCCESS",
-    "TXNAMOUNT": "3999.00",
+    "TXNAMOUNT": "7000.00",
     "TXNDATE": "2026-09-14 17:17:53.0", //recievedAt
     "TXNID": "20260914011660000306307063546584761"
   }

@@ -163,7 +163,7 @@ export default class PaymentController {
         mid: this.Mid,
         websiteName: "WEBSTAGING",
         orderId,
-        callbackUrl: "http://localhost:3000/paytm/callback",
+        callbackUrl: "http://localhost:3000/payment/callback",
         txnAmount: {
           value: `${finalAmount.toFixed(2)}`,
           currency: "INR",
