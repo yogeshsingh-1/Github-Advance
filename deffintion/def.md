@@ -1,3 +1,27 @@
+# Network and Networking ?
+
+- Jab do ya do se zyada devices aapas mein connected hote hain aur ek-dusre ke saath data/resources share kar sakte hain, us connection/system ko network kehte hain.
+
+- Do ya do se zyada devices ke beech data/information exchange karne ka process networking kehlata hai.
+
+# Networking ka imp concept
+
+| Concept         | Simple meaning                                        |
+| --------------- | ----------------------------------------------------- |
+| **IP Address**  | Device/server ka network address                      |
+| **MAC Address** | Network interface ki hardware-level identity          |
+| **Port**        | Kisi application/service ka entry point               |
+| **Protocol**    | Communication ke rules                                |
+| **TCP**         | Reliable communication                                |
+| **UDP**         | Fast communication, reliability application par       |
+| **HTTP/HTTPS**  | Web communication                                     |
+| **DNS**         | Domain name → IP address                              |
+| **Router**      | Different networks ke beech traffic forward karta hai |
+| **Switch**      | Same local network ke devices connect karta hai       |
+| **Firewall**    | Traffic ko allow/block karta hai                      |
+| **NAT**         | Private IP aur public IP ke beech translation         |
+| **Subnet**      | Network ko smaller networks me divide karna           |
+
 # What is DNS Lookup
 
 A DNS (Domain Name System) lookup is the process of translating human-readable website names (e.g., google.com) into machine-readable IP addresses (e.g., 192.168.1.1).
@@ -33,4 +57,5 @@ A webhook is a server-to-server callback mechanism in which a service sends an H
 Webhook = Event happens → Server automatically notifies another server.
 
 # Polling: "Has the payment completed?" → repeatedly asks.
+
 # Webhook: "Payment completed!" → gateway tells you automatically.
