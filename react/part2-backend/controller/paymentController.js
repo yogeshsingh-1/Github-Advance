@@ -105,15 +105,13 @@ export default class PaymentController {
       };
       const razorpayOrder = await razorpay.orders.create(options);
       // const { id, amount, status, token } = razorpayOrder;
-      return res
-        .status(200)
-        .json({
-          success: true,
-          id: razorpayOrder.id,
-          amount: razorpayOrder.amount,
-          currency: razorpayOrder.currency,
-          status: razorpayOrder.status,
-        });
+      return res.status(200).json({
+        success: true,
+        id: razorpayOrder.id,
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        status: razorpayOrder.status,
+      });
     } catch (e) {
       throw e;
     }
@@ -171,8 +169,20 @@ export default class PaymentController {
         userInfo: {
           custId,
         },
-        // enablePaymentMode: [{ mode: "UPI", channels: ["UPIPUSH"] },
-        // ],
+        enablePaymentMode: [
+          { mode: "UPI" },
+          // { mode: "CREDIT_CARD" },
+          {
+            mode: "DEBIT_CARD",
+          },
+          // {
+          //   mode: "NET_BANKING",
+          // },
+          // {
+          //   mode: "EMI",
+          // }
+        ],
+        //  channels: ["UPIPUSH"]
       };
 
       /*

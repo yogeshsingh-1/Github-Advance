@@ -38,7 +38,7 @@ The availability of these modes depends on the merchant account, Paytm configura
 
 A payment channel represents a specific way of processing a payment within a payment mode.
 
-For example, UPI supports different channels, such as UPI Collect and UPI Intent.
+For example, UPI supports different channels, such as UPI Collect and UPI Intent and UPI Push.
 
 ### Supported Channels
 
