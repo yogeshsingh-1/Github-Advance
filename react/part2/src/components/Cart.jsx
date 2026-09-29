@@ -58,7 +58,7 @@ const Cart = () => {
       setCourseData([]);
       return;
     }
-    new EventSource();
+  
     getCourseData();
     return () => {
       console.log("product unmount");
