@@ -1,0 +1,16 @@
+{
+  "name": "learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "os.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^26.6.3"
+  }
+}
