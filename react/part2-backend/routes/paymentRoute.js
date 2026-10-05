@@ -5,14 +5,14 @@ const paymentController = new PaymentController();
 // create Order for paytm
 paytmRouter.post(
   "/paytm/createOrder",
-  paymentController.createPaytmPaymentOrder
+  paymentController.createPaytmPaymentOrder,
 );
 // create order for razorpay
 paytmRouter.post(
   "/razorpay/createOrder",
-  paymentController.createRazorPayMentOrder
+  paymentController.createRazorPayMentOrder,
 );
 // Initiate callback by paytm
 paytmRouter.post("/callback", paymentController.callBackRequest);
-
+paytmRouter.get("/order/confirm/:orderId", paymentController.verifyPayment);
 export default paytmRouter;

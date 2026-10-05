@@ -2,7 +2,8 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout";
 import Product from "../components/Product";
-import Cart from "../components/Cart";
+// import Cart from "../components/Cart";
+import Cart from "../components/Cart-ERP365";
 import PaymentResult from "../components/PaymentResult";
 
 const Router = createBrowserRouter([

@@ -182,6 +182,15 @@ export default class PaymentController {
           //   mode: "EMI",
           // }
         ],
+        extendInfo: {
+          udf1: JSON.stringify({
+            Name: "abhishek sharma",
+            Email: "luuu@gmail.com",
+            Mobile: "5877155850",
+            Password: "{{password}}",
+            Token: "976020",
+          }),
+        },
         //  channels: ["UPIPUSH"]
       };
 
@@ -190,7 +199,7 @@ export default class PaymentController {
        */
       const signature = await PaytmChecksum.generateSignature(
         JSON.stringify(body),
-        this.Key
+        this.Key,
       );
       // o5j5zVOQAf1TewSDcEUSt8iYkFGnkK0OiUQGnzyyaVI880owVJa48U4CuTbHq0MSTdXBaXb2J35nY9jGIXmBmp0aANosFMw5xdHKxC8I7o8=
 
@@ -221,7 +230,7 @@ export default class PaymentController {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
 
       console.log("Paytm Response:", response.data);
@@ -294,7 +303,7 @@ export default class PaymentController {
       const isVerifySignature = PaytmChecksum.verifySignature(
         callbackData,
         this.Key,
-        paytmChecksum
+        paytmChecksum,
       );
 
       if (!isVerifySignature) {
@@ -309,7 +318,7 @@ export default class PaymentController {
               responseMessage: "Invalid Paytm checksum",
               callbackReceivedAt: new Date(),
             },
-          }
+          },
         );
 
         return res.status(400).json({
@@ -355,11 +364,11 @@ export default class PaymentController {
               responseMessage: "Payment amount mismatch. Refund initiated.",
               callbackReceivedAt: new Date(),
             },
-          }
+          },
         );
 
         return res.redirect(
-          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`
+          `http://localhost:5173/payment-result?orderId=${ORDERID}&status=refund_pending`,
         );
       }
       // 4. Insert PaymentTransaction
@@ -408,7 +417,7 @@ export default class PaymentController {
 
             callbackReceivedAt: new Date(),
           },
-        }
+        },
       );
 
       // 6. Store callback for audit/debugging
@@ -450,7 +459,7 @@ export default class PaymentController {
       });
 
       return res.redirect(
-        `http://localhost:5173/payment-result?${queryParams.toString()}`
+        `http://localhost:5173/payment-result?${queryParams.toString()}`,
       );
     } catch (error) {
       console.error("Paytm callback error:", error);
@@ -462,6 +471,39 @@ export default class PaymentController {
     }
   };
 
+  verifyPayment = async (req, res) => {
+    try {
+      const orderId = req.params.orderId;
+      const paytmBody = {
+        mid: this.Mid,
+        orderId: orderId,
+      };
+      const checkSum = await PaytmChecksum.generateSignature(
+        JSON.stringify(paytmBody),
+        this.Key,
+      );
+
+      const url = "https://securestage.paytmpayments.com/v3/order/status";
+
+      const response = await axios.post(
+        url,
+        {
+          ...paytmBody,
+          head: {
+            signature: checkSum,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      return res.status(200).json({ Data: response.data });
+    } catch (e) {
+      throw e;
+    }
+  };
   //  initiatePaytmRefund = async ({
   // //   orderId,
   // //   txnId,

@@ -1,5 +1,5 @@
-
 -- 1st query (Isme aliasing first wale ki wajah se aayegi )
+
 
 SELECT x."UserName"
 FROM (
@@ -16,6 +16,7 @@ FROM (
 --  UNION → dono tables ke records combine karta hai
 -- ORDER BY ... DESC → combined records ko date ke according sort karta hai
 -- LIMIT 1 → sorted result ki first row leta hai
+
 SELECT
     x."Name",
     x."Email",
@@ -39,4 +40,3 @@ FROM (
 ) x
 ORDER BY x."RenewalDate" DESC
 LIMIT 1;
-
