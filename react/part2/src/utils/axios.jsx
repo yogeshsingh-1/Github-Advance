@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
   baseURL: serverUrl,
   headers: {
     "content-type": "application/json",
+    origin: "https://books.mygstcafe.com",
   },
   // withCredentials: true,
   // timeout: 1 * 1000,

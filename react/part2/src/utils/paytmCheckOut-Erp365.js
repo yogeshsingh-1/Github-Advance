@@ -11,8 +11,8 @@ async function paytmCheckout(amount) {
       UKey: "7504142759637422000",
       Mode: 1,
       TenantBillingDetails: {
-        Name: "lulu manali",
-        Email: "lu@gmail.com",
+        Name: "Anurag Nigam",
+        Email: "ys3254287@gmail.com",
         Mobile: "4564464564",
         UserName: "cool_sharma12",
         ContactPerson: "456456",
