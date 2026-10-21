@@ -119,11 +119,12 @@
 import { useState } from "react";
 
 function App() {
+  // BroadcastChannel();
   const [items, setItems] = useState(["Apple", "Banana", "Mango"]);
   const [droppedItems, setDroppedItems] = useState([]);
-
+  sessionStorage.setItem("");
   const handleDragStart = (e, item) => {
-    console.log(e)
+    console.log(e);
     console.log("Drag started:", item);
 
     e.dataTransfer.effectAllowed = "move";

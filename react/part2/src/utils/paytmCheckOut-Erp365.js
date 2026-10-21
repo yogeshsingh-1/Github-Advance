@@ -8,7 +8,7 @@ async function paytmCheckout(amount) {
     // });
     const response = await axiosInstance.post("/api/billing/payment-orders", {
       amount: 1000,
-      UKey: "7504142759637422000",
+      UKey: "7505876639520264000",
       Mode: 1,
       TenantBillingDetails: {
         Name: "Anurag Nigam",

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hello world</h1>
+
+    <button onclick="openGoogle()">SignIn With Google</button>
+
+    <script>
+      const query = new URLSearchParams(window.location.search);
+      
+
+      const code = query.get("code");
+      if (code) {
+        fetchRequest();
+      }
+      let popup;
+
+      // Open Google PopUp page function
+      function openGoogle() {
+        const query = new URLSearchParams({
+          response_type: "code",
+          client_id: client_id,
+          scope: "openid email profile",
+          redirect_uri: "http://localhost:5500",
+          // state:""
+        });
+        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${query}`;
+        const width = 500;
+        const height = 500;
+        const left = window.screenX + (window.outerWidth - width) / 2;
+        const top = window.screenY + (window.outerHeight - height) / 2;
+
+        popup = window.open(
+          authUrl,
+          "auth-popup",
+          `width=${width},height=${height},left=${Math.round(left)},top=${Math.round(top)}`,
+        );
+      }
+
+      async function fetchRequest() {
+        debugger;
+        let payload = await fetch("https://oauth2.googleapis.com/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            code,
+            client_id,
+            client_secret: client_Secret,
+            redirect_uri: "http://localhost:5500",
+            grant_type: "authorization_code",
+          }),
+        });
+        payload = await payload.json();
+        console.log(payload);
+        console.log(payload.id_token); // This is jwt token (header, payload and signature)
+        const userInfo = payload.id_token.split(".")[1]; //there we user payload
+
+        console.log(atob(userInfo)); // base64 to string
+      }
+
+      window.addEventListener("message",  (event)=> {
+        if (event.origin !== window.location.origin) {
+          return;
+        }
+
+        console.log("Message received:", event.data);
+        if (code && popup) {
+          popup.close();
+          popup =null
+        }
+      });
+      if (window.name === "auth-popup" && window.opener && code) {
+        // Notify the parent after the login callback
+        debugger
+        window.opener.postMessage(
+          { type: "LOGIN_SUCCESS" },
+          window.location.origin,
+        );
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <a
+      href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=640249440952-svt79p7s7d6c5oon3aaab5dtsroakfie.apps.googleusercontent.com&scope=openid email profile&redirect_uri=http://localhost:5500&state=lolumal"
+      >SignIn With Google</a
+    > -->
+
+<!-- // if (window.name == "auth-popup") {
+      //   console.log("My window running for oath...");
+      //   window.opener.postMessage("Hi from PopUp.");
+      // } -->
+<!-- 
+      // https://accounts.google.com/o/oauth2/v2/auth?response_type=null&client_id=640249440952-svt79p7s7d6c5oon3aaab5dtsroakfie.apps.googleusercontent.com&scope=openid+email+profile&redirect_uri=http%3A%2F%2Flocalhost%3A5500 -->
+<!-- 
+http://localhost:5500/?
+state=lolumal&iss=https://accounts.google.com&code=4/0AXlqoi6EyIXxjiysZBqsZQX9XQcKBYa1nwQC96f8MrYs3lbuXHS4-HKGEAk0Ps1RgaIuUA&scope=email+profile+https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email+openid&authuser=2&prompt=consent -->

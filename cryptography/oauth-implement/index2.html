@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Main page</h3>
+    <button onclick="openPopUp()">Open PopUp</button>
+    <script>
+      let popup;
+      function openPopUp() {
+        popup = window.open("/pop-up.html", "popup", "width=500,height=500");
+      }
+
+      window.addEventListener("message", function () {
+        if (popup) {
+          console.log("msg receved");
+          popup.close();
+          popup = null;
+        }
+      });
+    </script>
+  </body>
+</html>

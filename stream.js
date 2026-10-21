@@ -1,17 +1,12 @@
-import { createReadStream } from "fs";
+import fs from "node:fs";
+const readable = fs.createReadStream("./git.md", "utf-8");
 
-const readStream = createReadStream("browser.js", {
-  //   encoding: "utf-8",
-  highWaterMark: 10,
+const writeable = fs.createWriteStream("./output.txt");
+// writeable.on("data", (chunk) => console.log(chunk));
+readable.on("data", (chunk) => {
+  writeable.write(chunk);
 });
-readStream.on("data", (chunk) => {
-  
-    process.stdout.write(chunk.toString());
-    readStream.pause();
-  const isPaused = readStream.isPaused();
-  if (isPaused) {
-    setTimeout(() => {
-      readStream.resume();
-    }, 500);
-  }
+readable.on("end", () => {
+  writeable.end();
 });
+// writeable.end();

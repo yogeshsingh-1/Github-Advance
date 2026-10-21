@@ -1,0 +1,45 @@
+node_modules/
+upload/
+assset/
+.vscode/
+storage/
+*.mp4
+*.pdf
+*.jpg
+*.webp
+wanderlust/
+.env
+.env.development
+.env/*
+.env.local
+md-files/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# Distribution / build
+build/
+dist/
+*.egg-info/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db 

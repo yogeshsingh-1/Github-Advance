@@ -122,3 +122,10 @@ res.set("X-App-Version","2.0");
 | text/plain                        | Plain text    | `express.text()`       |
 | text/html                         | HTML response | `res.send()`           |
 | application/pdf                   | PDF           | `res.sendFile()`       |
+
+
+# Content-Type	
+Batata hai ki response ka data kis format mein hai.
+
+# Content-Disposition	
+Batata hai ki browser content ko kaise handle kare, jaise download karna ya browser mein dikhana.
