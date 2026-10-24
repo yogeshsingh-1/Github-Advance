@@ -14,7 +14,7 @@ const Cart = () => {
   const getCourseData = async () => {
     try {
       const { data } = await axiosInstance.get(
-        `/course/${cartCourse.join(",")}`
+        `/course/${cartCourse.join(",")}`,{withCredentials:true}
       );
       console.log(data);
       setCourseData(data.data);

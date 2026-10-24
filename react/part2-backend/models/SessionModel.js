@@ -6,6 +6,10 @@ const sessionSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.Mixed,
       default: [],
     },
+    Expires: {
+      type: Number,
+      default: Date.now() / 1000 + 60 * 60
+    },
   },
   {
     timestamps: false,

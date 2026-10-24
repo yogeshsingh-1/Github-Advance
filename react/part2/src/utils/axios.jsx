@@ -1,15 +1,17 @@
 import React from "react";
 import axios from "axios";
 const serverUrl = import.meta.env.SECRET_SERVER;
-console.log(serverUrl);
-
+// console.log(serverUrl);
+const backendServerUrl = import.meta.env.SECRET_BACKEND_SERVER;
+console.log(backendServerUrl);
 const axiosInstance = axios.create({
-  baseURL: serverUrl,
+  baseURL: backendServerUrl,
   headers: {
     "content-type": "application/json",
-    origin: "https://books.mygstcafe.com",
+    // origin: "https://books.mygstcafe.com",
+    // origin: backendServerUrl,
   },
-  // withCredentials: true,
+  withCredentials: true,
   // timeout: 1 * 1000,
 });
 export default axiosInstance;

@@ -12,7 +12,7 @@ function Product() {
   }
   const getCourseData = async () => {
     try {
-      const { data } = await axiosInstance.get("/courses");
+      const { data } = await axiosInstance.get("/courses",{withCredentials:true});
       console.log(data);
       setCourseData(data.data);
     } catch (e) {
