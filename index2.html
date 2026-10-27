@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parent Window</title>
+  </head>
+  <body>
+    <button onclick="openPopUP()">Open Dialog</button>
+
+    <script>
+      window.name = "myApp";
+
+      let popup;
+
+      function openPopUP() {
+        popup = window.open("/", "auth", "width=400,height=400");
+
+        if (popup) {
+          popup.postMessage("msg", window.location.origin);
+
+          setTimeout(() => {
+            popup.close();
+          }, 5000);
+        }
+      }
+
+      window.addEventListener("message", function (event) {
+        if (event.origin !== window.location.origin) {
+          return;
+        }
+        console.log("Message received:", event.data);
+      });
+    </script>
+  </body>
+</html>
+<!-- Bhai, tumhare code ko ekdum basic se samajhte hain. Pehle ye samjho ki browser mein Parent Window aur Popup Window do alag windows ho sakti hain. Inke beech communication karne ke liye hi window.open(), window.opener aur postMessage() use hote hain. -->
+
+<!-- window.opener.postMessage("msg");
+
+
+Is line ko samajhne ke liye ek rule yaad rakho:
+- Parent window ke andar window.opener aam taur par null hota hai, agar us parent ko kisi doosri window ne open nahi kiya.
+- Popup ke andar window.opener us parent window ko refer karta hai jisne popup khola tha.
+Isliye tumhare current code mein, agar index.html original tab mein open hai, to ye line error de sakti hai. -->

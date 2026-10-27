@@ -31,9 +31,9 @@
 // } catch (error) {
 //   console.error("Paytm Payment Error:", error.response?.data || error.message);
 // }
-const a = 9999;
+// const a = 9999;
 
-console.log(a.toFixed(5));
+// console.log(a.toFixed(5));
 // <!-- <script
 //   type="application/javascript"
 //   crossorigin="anonymous"
@@ -44,6 +44,15 @@ console.log(a.toFixed(5));
 //   src="https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/${merchantId}.js"
 //   crossorigin="anonymous"
 // ></script> -->
-// <!-- 
+// <!--
 // <script type="application/javascript" src="{HOST}/merchantpgpui/checkoutjs/merchants/{MID}.js" onload="onScriptLoad();" crossorigin="anonymous"></script>
 // <script> --></script>
+
+const a = {
+  name: "Yoes",
+  ae: 27,
+  print: () => {
+    return this;
+  },
+};
+console.log(a.print());
