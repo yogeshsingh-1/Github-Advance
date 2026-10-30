@@ -9,19 +9,68 @@ const query = new URLSearchParams({
   redirect_uri: redirect_uri,
 });
 
-window.addEventListener("message", async (event) => {
-  console.log(event);
+window.addEventListener("message", ({ data }) => {
+  if (data.code && data.type === "oauth_code") {
+    const apiInfo = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        code: data.code,
+      }),
+    };
+    fetch(`http://localhost:4000/google/callback`, apiInfo)
+      .then(async (res) => {
+        res = await res.json();
+        console.log(window.location.href);
+        console.log(res);
+        if (res.redirectUrl) {
+          window.location.href = res.redirectUrl;
+          sessionStorage.setItem("user", res?.data);
+        }
+      })
+      .catch((e) => console.error("OAuth callback error:", e));
+  }
 });
-// Open Google oauth popup
+// console.log(channel)
+
 let popup;
+
 function openPopUp() {
-  popup = window.open(`${oauthUrl}?${query}`, "oauth", "width=500,height=500");
+  popup = window.open(
+    `${oauthUrl}?${query.toString()}`,
+    "oauth",
+    "width=500,height=600",
+  );
 }
 
-// Listener popup open karne se pehle register karo
+// const channel = new BroadcastChannel("oauth");
 
-// window.addEventListener("message", (event) => {
-//   if (event.origin !== window.location.origin) return;
-
-//   console.log(event.data);
-// });
+// channel.onmessage = ({ data }) => {
+//   console.log(data);
+//   debugger;
+//   console.log("HI from Yogesh:", data.code);
+//   if (data.code) {
+//     const apiInfo = {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         code: data.code,
+//       }),
+//     };
+//     fetch(`http://localhost:4000/google/callback`, apiInfo)
+//       .then(async (res) => {
+//         res = await res.json();
+//         console.log(window.location.href);
+//         console.log(res);
+//         if (res.redirectUrl) {
+//           window.location.href = res.redirectUrl;
+//           sessionStorage.setItem("user", res?.data);
+//         }
+//       })
+//       .catch((e) => console.error("OAuth callback error:", e));
+//   }
+// };
