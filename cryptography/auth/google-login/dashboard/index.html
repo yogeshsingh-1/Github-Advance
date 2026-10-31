@@ -228,7 +228,20 @@
         document.getElementById("login-btn").style.display = "none";
       }
       function logout() {
+        debugger
         sessionStorage.removeItem("user");
+        const apiInfo = {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        };
+        fetch(`http://localhost:4000/google/logout`, apiInfo)
+          .then(async (res) => {
+            res = await res.json();
+          })
+          .catch((e) => console.error("OAuth callback error:", e));
         window.location.href = "/dashboard";
       }
       function login() {

@@ -18,6 +18,7 @@ window.addEventListener("message", ({ data }) => {
     // setTimeout(() => pop.close(), 5000);
     const apiInfo = {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

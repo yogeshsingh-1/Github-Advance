@@ -41,12 +41,12 @@ async function receivedCallBack(code) {
 
   const { sub, name, email, picture } = JSON.parse(userDetails);
   // Check whether user already exists
-  const findUser = jsonData.some((user) => user.sub === sub);
+  const findUser = jsonData.some((user) => user.id === sub);
   if (!findUser) {
-    jsonData.push({ sub, name, email });
+    jsonData.push({ id: sub, name, email });
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
   }
 
-  return { name, email, picture };
+  return { name, email, picture, id: sub };
 }
 export default receivedCallBack;
