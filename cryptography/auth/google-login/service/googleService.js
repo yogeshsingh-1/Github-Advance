@@ -1,5 +1,5 @@
 import "dotenv/config";
-import fs from "fs";
+import fs from "node:fs";
 const tokenUrl = "https://oauth2.googleapis.com/token";
 const client_id = process.env.client_id;
 const client_secret = process.env.client_Secret;
@@ -21,12 +21,32 @@ async function receivedCallBack(code) {
     body,
   });
   const data = await res.json();
-  fs.writeFileSync("cust.json", JSON.stringify(data, null, 2));
-  const idToken = data?.id_token;
-  if (!idToken) {
+  if (!res.ok || !data?.id_token) {
+    console.error("Token error:", data);
     return null;
   }
-  // atob() ->jwt string ko user json
-  return atob(idToken.split(".")[1]);
+  // Create directory if it doesn't exist
+  const jsonPath = "./json";
+  fs.mkdirSync(jsonPath, { recursive: true });
+
+  const filePath = `${jsonPath}/user.json`;
+  let jsonData = [];
+  if (fs.existsSync(filePath)) {
+    const fileData = fs.readFileSync(filePath, "utf-8");
+    jsonData = fileData ? JSON.parse(fileData) : [];
+  }
+  // Decode ID token payload
+  const idToken = data.id_token;
+  const userDetails = atob(idToken.split(".")[1]); // atob() ->jwt string ko user json
+
+  const { sub, name, email, picture } = JSON.parse(userDetails);
+  // Check whether user already exists
+  const findUser = jsonData.some((user) => user.sub === sub);
+  if (!findUser) {
+    jsonData.push({ sub, name, email });
+    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+  }
+
+  return { name, email, picture };
 }
 export default receivedCallBack;

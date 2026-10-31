@@ -4,13 +4,181 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Login Demo</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Inter, Arial, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background:
+          radial-gradient(circle at top left, #dbeafe, transparent 45%),
+          radial-gradient(circle at bottom right, #ede9fe, transparent 45%),
+          #f8fafc;
+        color: #1e293b;
+      }
+
+      .login-card {
+        width: 100%;
+        max-width: 420px;
+        padding: 44px 36px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid #e2e8f0;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+      }
+
+      .logo {
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        border-radius: 20px;
+        background: #eff6ff;
+        font-size: 30px;
+      }
+
+      h1 {
+        font-size: 27px;
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        margin-bottom: 12px;
+      }
+
+      .subtitle {
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 32px;
+      }
+
+      .google-btn {
+        width: 100%;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 12px 18px;
+        border: 1px solid #cbd5e1;
+        border-radius: 12px;
+        background: #fff;
+        color: #334155;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+
+      .google-btn:hover {
+        background: #f8fafc;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+        transform: translateY(-1px);
+      }
+
+      .google-btn:active {
+        transform: translateY(0);
+      }
+
+      .google-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 28px 0 20px;
+        color: #94a3b8;
+        font-size: 12px;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+      }
+
+      .footer {
+        font-size: 12px;
+        line-height: 1.7;
+        color: #94a3b8;
+      }
+
+      @media (max-width: 480px) {
+        .login-card {
+          padding: 36px 24px;
+          border-radius: 20px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <h3>Implement Login with Google</h3>
+    <main class="login-card">
+      <div class="logo" aria-hidden="true">🔐</div>
 
-    <button onclick="openPopUp()">Login with Google</button>
+      <h1>Welcome back</h1>
 
-    <script src="./app.js" ></script>
+      <p class="subtitle">
+        Sign in with your Google account to continue to your application.
+      </p>
+
+      <button class="google-btn" type="button" onclick="openPopUp()">
+        <svg class="google-icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path
+            fill="#EA4335"
+            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+            transform="translate(0 4)"
+          />
+          <path
+            fill="#4285F4"
+            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.72 7.18l7.64 5.93c4.46-4.13 7.12-10.2 7.12-17.58z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a24 24 0 0 0 0 21.56l7.98-6.19z"
+            transform="translate(0 4)"
+          />
+          <path
+            fill="#34A853"
+            d="M24 48c6.48 0 11.93-2.13 15.9-5.8l-7.64-5.93c-2.13 1.43-4.85 2.28-8.26 2.28-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+            transform="translate(0 -4)"
+          />
+        </svg>
+
+        Continue with Google
+      </button>
+
+      <div class="divider">SECURE SIGN IN</div>
+
+      <p class="footer">
+        By continuing, you agree to the applicable terms and privacy policy.
+      </p>
+    </main>
+
+    <script src="./app.js"></script>
   </body>
 </html>

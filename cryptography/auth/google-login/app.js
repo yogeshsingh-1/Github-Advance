@@ -22,10 +22,9 @@ app.use(express.static(path.join(process.cwd())));
 app.post("/google/callback", async (req, res) => {
   console.log(req.body);
   const result = await receivedCallBack(req.body.code);
-  // res.redirect(302, "http://localhost:5500/a.html");
   return res.json({
     success: true,
-    redirectUrl: "http://localhost:5500/dashboard.html",
+    redirectUrl: "http://localhost:5500/dashboard",
     data: result,
   });
 });

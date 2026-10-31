@@ -8,9 +8,14 @@ const query = new URLSearchParams({
   scope: "openid email profile",
   redirect_uri: redirect_uri,
 });
+let popup;
 
 window.addEventListener("message", ({ data }) => {
+  debugger;
   if (data.code && data.type === "oauth_code") {
+    console.log("Code", data.code);
+    // popup.close();
+    // setTimeout(() => pop.close(), 5000);
     const apiInfo = {
       method: "POST",
       headers: {
@@ -23,11 +28,11 @@ window.addEventListener("message", ({ data }) => {
     fetch(`http://localhost:4000/google/callback`, apiInfo)
       .then(async (res) => {
         res = await res.json();
-        console.log(window.location.href);
-        console.log(res);
+        popup.postMessage({ status: res.status, type: "oauth_verify" });
         if (res.redirectUrl) {
-          window.location.href = res.redirectUrl;
-          sessionStorage.setItem("user", res?.data);
+          // window.location.href = res.redirectUrl;
+          window.parent.location.href = res.redirectUrl;
+          sessionStorage.setItem("user", JSON.stringify(res?.data));
         }
       })
       .catch((e) => console.error("OAuth callback error:", e));
@@ -35,13 +40,17 @@ window.addEventListener("message", ({ data }) => {
 });
 // console.log(channel)
 
-let popup;
-
 function openPopUp() {
+  const width = 500;
+  const height = 600;
+
+  // Calculate center position
+  const left = window.screenX + (window.outerWidth - width) / 2;
+  const top = window.screenY + (window.outerHeight - height) / 2;
   popup = window.open(
     `${oauthUrl}?${query.toString()}`,
     "oauth",
-    "width=500,height=600",
+    `width=${width},height=${height},left=${Math.round(left)},top=${Math.round(top)}`,
   );
 }
 

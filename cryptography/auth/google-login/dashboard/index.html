@@ -100,6 +100,80 @@
           display: none;
         }
       }
+
+      #iframe {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        justify-content: center;
+        align-items: center;
+        display: none;
+        padding: 20px;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+
+        animation: overlayFade 0.25s ease;
+      }
+
+      .iframe-container {
+        width: 420px;
+        max-width: 100%;
+        height: 540px;
+        max-height: calc(100vh - 40px);
+
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+
+        box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.2),
+          0 8px 20px rgba(0, 0, 0, 0.08);
+
+        animation: modalEnter 0.3s ease;
+      }
+
+      .iframe-container iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #ffffff;
+      }
+
+      @keyframes overlayFade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes modalEnter {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.97);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @media (max-width: 480px) {
+        #iframe {
+          padding: 16px;
+        }
+
+        .iframe-container {
+          width: 100%;
+          height: 520px;
+          max-height: calc(100dvh - 32px);
+          border-radius: 16px;
+        }
+      }
     </style>
   </head>
 
@@ -122,6 +196,13 @@
         <button class="login-btn" id="login-btn" onclick="login()">
           Login
         </button>
+        <!-- Login Page -->
+
+        <div id="iframe">
+          <div class="iframe-container">
+            <iframe src="../login/index.html" title="Google Login"></iframe>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -148,11 +229,25 @@
       }
       function logout() {
         sessionStorage.removeItem("user");
-        window.location.href = "/login";
+        window.location.href = "/dashboard";
       }
       function login() {
-        window.location.href = "/login";
+        document.getElementById("iframe").style.display = "flex";
       }
+      // function login() {
+      //   const width = 500;
+      //   const height = 600;
+
+      //   // Calculate center position
+      //   const left = window.screenX + (window.outerWidth - width) / 2;
+      //   const top = window.screenY + (window.outerHeight - height) / 2;
+      //   // window.location.href = "/login";
+      //   window.open(
+      //     "/login",
+      //     "login",
+      //     `width=${width},height=${height},left=${Math.round(left)},top=${Math.round(top)}`,
+      //   );
+      // }
     </script>
   </body>
 </html>
