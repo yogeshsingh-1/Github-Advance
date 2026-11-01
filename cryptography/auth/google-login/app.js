@@ -70,8 +70,24 @@ app.post("/google/callback", async (req, res) => {
   });
 });
 app.post("/google/logout", (req, res) => {
-  res.clearCookie("session_id", { signed: true, httpOnly: true });
-  return res.status(200).json({
+  const {session_id}  =req.signedCookies;
+  if(session_id){
+    const sessionIndex = sessions.findIndex(({sessionId})=> sessionId === session_id);
+    // Index 0 is valid. -1 means not found.
+   if(sessionIndex !== -1){
+     sessions.splice(sessionIndex,1);
+    writeFileSync("./json/sessionDB.json", JSON.stringify(sessions, null, 2));
+   }
+    }
+   // Clear the browser cookie whether or not
+  // the server-side session still exists.
+  res.clearCookie("session_id", {
+    httpOnly: true,
+    path: "/",
+  });
+
+
+  return res.status(204).json({
     success: true,
     msg: "Logout Succesfully!.",
   });
