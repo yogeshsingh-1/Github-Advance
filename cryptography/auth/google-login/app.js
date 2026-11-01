@@ -39,6 +39,12 @@ app.post("/google/callback", async (req, res) => {
       .json({ status: false, msg: "Google Code not provided" });
   }
   const result = await receivedCallBack(code);
+  if (!result) {
+  return res.status(401).json({
+    success: false,
+    msg: "Google authentication failed",
+  });
+}
 
   // const sessionId = crypto.randomUUID();
   let sessionId = null;
