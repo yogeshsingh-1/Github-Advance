@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.static(path.join(process.cwd())));
 
 app.post("/google/callback", async (req, res) => {
-  const {session_id} = req.cookies;
+  const {session_id} = req.signedCookies;
   const existingSession= sessions.find(({sessionId})=> sessionId === session_id)
   if(existingSession){
     return res.status(200).json({status :true,msg:'User already logged in.'})
