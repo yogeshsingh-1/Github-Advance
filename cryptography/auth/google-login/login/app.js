@@ -11,7 +11,7 @@ const query = new URLSearchParams({
 let popup;
 
 window.addEventListener("message", ({ data }) => {
-  debugger;
+  // debugger;
   if (data.code && data.type === "oauth_code") {
     console.log("Code", data.code);
     // popup.close();
@@ -33,7 +33,7 @@ window.addEventListener("message", ({ data }) => {
         if (res.redirectUrl) {
           // window.location.href = res.redirectUrl;
           window.parent.location.href = res.redirectUrl;
-          sessionStorage.setItem("user", JSON.stringify(res?.data));
+          // sessionStorage.setItem("user", JSON.stringify(res?.data));
         }
       })
       .catch((e) => console.error("OAuth callback error:", e));

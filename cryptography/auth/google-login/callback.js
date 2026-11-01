@@ -20,7 +20,7 @@ if (error) {
 }
 
 if (code && window.name == "oauth" && window.opener) {
-  debugger;
+  // debugger;
   window.opener.postMessage({ code, type: "oauth_code" });
 
   console.log("Message sent successfully");

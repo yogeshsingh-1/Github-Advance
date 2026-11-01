@@ -4,6 +4,7 @@ import receivedCallBack from "./service/googleService.js";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import sessions from "./json/sessionDB.json" with { type: "json" };
+import users from "./json/user.json" with { type: "json" };
 import { writeFileSync } from "node:fs";
 const port = 4000;
 const app = express();
@@ -25,6 +26,11 @@ app.use(express.json());
 app.use(express.static(path.join(process.cwd())));
 
 app.post("/google/callback", async (req, res) => {
+  const {session_id} = req.cookies;
+  const existingSession= sessions.find(({sessionId})=> sessionId === session_id)
+  if(existingSession){
+    return res.status(200).json({status :true,msg:'User already logged in.'})
+  }
   console.log(req.body);
   const code = req.body?.code;
   if (!code) {
@@ -54,7 +60,7 @@ app.post("/google/callback", async (req, res) => {
   return res.json({
     success: true,
     redirectUrl: "http://localhost:5500/dashboard",
-    data: result,
+    // data: result,
   });
 });
 app.post("/google/logout", (req, res) => {
@@ -64,5 +70,22 @@ app.post("/google/logout", (req, res) => {
     msg: "Logout Succesfully!.",
   });
 });
+app.get("/google/profile",(req,res)=>{
+  const {session_id} = req.signedCookies;
+  const existingSession= sessions.find(({sessionId})=> sessionId === session_id)
+  if(!existingSession){
+    res.clearCookie("session_id", { signed: true, httpOnly: true });
+    return res.status(409).json({status :false,msg:'You are not logged in.'})
+  }
+  const userId =existingSession.userId;
+  const userDetails= users.find((user)=>user.id === userId);
+  if(!userDetails){
+    res.clearCookie("session_id", { signed: true, httpOnly: true });
+    return res.status(200).json({status:false,msg:'You are not logged in.'});
+  }
+ return res.status(200).json({status:true,data:userDetails});
+
+
+})
 
 app.listen(port, () => console.log(`server is listening on port ${port}`));

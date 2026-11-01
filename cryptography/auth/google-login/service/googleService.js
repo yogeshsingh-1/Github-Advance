@@ -43,7 +43,7 @@ async function receivedCallBack(code) {
   // Check whether user already exists
   const findUser = jsonData.some((user) => user.id === sub);
   if (!findUser) {
-    jsonData.push({ id: sub, name, email });
+    jsonData.push({ id: sub, name, email, picture });
     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
   }
 
