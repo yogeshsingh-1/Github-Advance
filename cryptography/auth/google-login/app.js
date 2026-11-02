@@ -67,6 +67,11 @@ app.post("/google/callback", async (req, res) => {
     success: true,
     redirectUrl: "http://localhost:5500/dashboard",
     // data: result,
+
+
+
+
+    
   });
 });
 app.post("/google/logout", (req, res) => {
