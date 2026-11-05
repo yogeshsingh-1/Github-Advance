@@ -51,7 +51,7 @@ function openPopUp() {
   const left = window.screenX + (window.outerWidth - width) / 2;
   const top = window.screenY + (window.outerHeight - height) / 2;
   popup = window.open(
-    `${oauthUrl}?${query.toString()}`,
+    `http://localhost:4000/auth/google`,
     "oauth",
     `width=${width},height=${height},left=${Math.round(left)},top=${Math.round(top)}`,
   );
