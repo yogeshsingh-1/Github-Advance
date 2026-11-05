@@ -222,7 +222,7 @@
       fetch(`http://localhost:4000/google/profile`, apiInfo)
         .then(async (res) => {
           res = await res.json();
-          debugger;
+          // debugger;
           if (res.status) {
             user = res.data;
             document.getElementById("userName").textContent = user?.name;

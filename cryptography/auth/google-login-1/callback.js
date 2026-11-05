@@ -1,5 +1,3 @@
-console.log("Callback loaded:", location.origin);
-
 // const params = new URLSearchParams(location.search);
 
 // const code = params.get("code");
