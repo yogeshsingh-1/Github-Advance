@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Parent</h3>
+    <button onclick="openPopUp()">Open Child</button>
+    <script>
+      let popup;
+      window.addEventListener("message", (event) => {
+        if (event.origin !== window.location.origin) return;
+        if (event.data) {
+          console.log(event.data);
+          // popup.close();
+        }
+      });
+      function openPopUp() {
+        popup = window.open("/child.html", "child", "width=300,height=400");
+      }
+    </script>
+  </body>
+</html>

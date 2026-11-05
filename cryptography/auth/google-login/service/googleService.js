@@ -3,7 +3,7 @@ import fs from "node:fs";
 const tokenUrl = "https://oauth2.googleapis.com/token";
 const client_id = process.env.client_id;
 const client_secret = process.env.client_Secret;
-const redirect_uri = "http://localhost:5500/callback.html";
+const redirect_uri = "http://localhost:4000/google/callback"||"http://localhost:5500/callback.html";
 
 async function receivedCallBack(code) {
   const body = new URLSearchParams({

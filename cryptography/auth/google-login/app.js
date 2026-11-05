@@ -25,26 +25,38 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.static(path.join(process.cwd())));
 
-app.post("/google/callback", async (req, res) => {
-  const {session_id} = req.signedCookies;
-  const existingSession= sessions.find(({sessionId})=> sessionId === session_id)
-  if(existingSession){
-    return res.status(200).json({status :true,msg:'User already logged in.'})
+app.get("/google/callback", async (req, res) => {
+  const { session_id } = req.signedCookies;
+  const existingSession = sessions.find(
+    ({ sessionId }) => sessionId === session_id,
+  );
+  if (existingSession) {
+    const successQuery = getQuery(true, "Authentication Succesfull.");
+    return res.redirect(`http://localhost:5500/callback.html?${successQuery}`);
+    // return res
+    //   .status(200)
+    //   .json({ status: true, msg: "User already logged in." });
   }
-  console.log(req.body);
-  const code = req.body?.code;
+  console.log(req.query);
+  const code = req.query?.code;
+  console.log(code);
   if (!code) {
-    return res
-      .status(200)
-      .json({ status: false, msg: "Google Code not provided" });
+    const failedQuery = getQuery(false, "Google Code not provided.");
+    return res.redirect(`http://localhost:5500/callback.html?${failedQuery}`);
+    // return res
+    //   .status(200)
+    //   .json({ status: false, msg: "Google Code not provided" });
   }
   const result = await receivedCallBack(code);
   if (!result) {
-  return res.status(401).json({
-    success: false,
-    msg: "Google authentication failed",
-  });
-}
+    const failedQuery = getQuery(false, "Google authentication failed.");
+    return res.redirect(`http://localhost:5500/callback.html?${failedQuery}`);
+
+    // return res.status(401).json({
+    //   success: false,
+    //   msg: "Google authentication failed",
+    // });
+  }
 
   // const sessionId = crypto.randomUUID();
   let sessionId = null;
@@ -61,58 +73,64 @@ app.post("/google/callback", async (req, res) => {
     signed: true,
     httpOnly: true,
     maxAge: 1 * 60 * 60 * 1000,
+    domain: "localhost",
   });
+  const successQuery = getQuery(true, "Authentication Succesfull.");
+  return res.redirect(`http://localhost:5500/callback.html?${successQuery}`);
 
-  return res.json({
-    success: true,
-    redirectUrl: "http://localhost:5500/dashboard",
-    // data: result,
-
-
-
-
-    
-  });
+  // return res.json({
+  //   success: true,
+  //   redirectUrl: "http://localhost:5500/dashboard",
+  //   // data: result,
+  // });
 });
 app.post("/google/logout", (req, res) => {
-  const {session_id}  =req.signedCookies;
-  if(session_id){
-    const sessionIndex = sessions.findIndex(({sessionId})=> sessionId === session_id);
+  const { session_id } = req.signedCookies;
+  if (session_id) {
+    const sessionIndex = sessions.findIndex(
+      ({ sessionId }) => sessionId === session_id,
+    );
     // Index 0 is valid. -1 means not found.
-   if(sessionIndex !== -1){
-     sessions.splice(sessionIndex,1);
-    writeFileSync("./json/sessionDB.json", JSON.stringify(sessions, null, 2));
-   }
+    if (sessionIndex !== -1) {
+      sessions.splice(sessionIndex, 1);
+      writeFileSync("./json/sessionDB.json", JSON.stringify(sessions, null, 2));
     }
-   // Clear the browser cookie whether or not
+  }
+  // Clear the browser cookie whether or not
   // the server-side session still exists.
   res.clearCookie("session_id", {
     httpOnly: true,
     path: "/",
   });
 
-
   return res.status(204).json({
     success: true,
     msg: "Logout Succesfully!.",
   });
 });
-app.get("/google/profile",(req,res)=>{
-  const {session_id} = req.signedCookies;
-  const existingSession= sessions.find(({sessionId})=> sessionId === session_id)
-  if(!existingSession){
+app.get("/google/profile", (req, res) => {
+  const { session_id } = req.signedCookies;
+  const existingSession = sessions.find(
+    ({ sessionId }) => sessionId === session_id,
+  );
+  if (!existingSession) {
     res.clearCookie("session_id", { signed: true, httpOnly: true });
-    return res.status(409).json({status :false,msg:'You are not logged in.'})
+    return res
+      .status(409)
+      .json({ status: false, msg: "You are not logged in." });
   }
-  const userId =existingSession.userId;
-  const userDetails= users.find((user)=>user.id === userId);
-  if(!userDetails){
+  const userId = existingSession.userId;
+  const userDetails = users.find((user) => user.id === userId);
+  if (!userDetails) {
     res.clearCookie("session_id", { signed: true, httpOnly: true });
-    return res.status(200).json({status:false,msg:'You are not logged in.'});
+    return res
+      .status(200)
+      .json({ status: false, msg: "You are not logged in." });
   }
- return res.status(200).json({status:true,data:userDetails});
+  return res.status(200).json({ status: true, data: userDetails });
+});
 
-
-})
-
+function getQuery(success, msg) {
+  return new URLSearchParams({ success, msg });
+}
 app.listen(port, () => console.log(`server is listening on port ${port}`));

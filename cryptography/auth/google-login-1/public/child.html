@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Child Page</h3>
+    <script>
+      if (window.name === "child" && window.opener) {
+        console.log(window.location.origin);
+        window.opener.postMessage("Munna Bhai MBBS.", window.location.origin);
+      }
+    </script>
+  </body>
+</html>
