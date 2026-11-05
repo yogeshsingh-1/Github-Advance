@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -129,7 +129,8 @@
         border: 1px solid rgba(255, 255, 255, 0.7);
         border-radius: 20px;
 
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2),
+        box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.2),
           0 8px 20px rgba(0, 0, 0, 0.08);
 
         animation: modalEnter 0.3s ease;
@@ -208,9 +209,12 @@
     </nav>
 
     <script>
-      // Replace these values with your Google user info
-
       let user = null;
+      const username = document.getElementById("userName");
+      const email = document.getElementById("userEmail");
+      const picture = document.getElementById("profilePicture");
+      const logout_btn = document.getElementById("logout-btn");
+      const login_btn = document.getElementById("login-btn");
       console.log(user);
       const apiInfo = {
         method: "GET",
@@ -225,17 +229,15 @@
           // debugger;
           if (res.status) {
             user = res.data;
-            document.getElementById("userName").textContent = user?.name;
-            document.getElementById("userEmail").textContent = user?.email;
-            document.getElementById("profilePicture").src = user?.picture;
-            document.getElementById("logout-btn").style.display = "block";
-            document.getElementById("login-btn").style.display = "none";
+            username.textContent = user?.name;
+            email.textContent = user?.email;
+            picture.src = user?.picture;
+            logout_btn.style.display = "block";
+            login_btn.style.display = "none";
           } else {
-            document.getElementById("userName").textContent = "Example User";
-            document.getElementById("userEmail").textContent =
-              "user@example.com";
-            document.getElementById("profilePicture").src =
-              "https://ui-avatars.com/api/?name=Example+User";
+            username.textContent = "Example User";
+            email.textContent = "user@example.com";
+            picture.src = "https://ui-avatars.com/api/?name=Example+User";
           }
         })
         .catch((e) => console.error("OAuth callback error:", e));
@@ -261,20 +263,6 @@
       function login() {
         document.getElementById("iframe").style.display = "flex";
       }
-      // function login() {
-      //   const width = 500;
-      //   const height = 600;
-
-      //   // Calculate center position
-      //   const left = window.screenX + (window.outerWidth - width) / 2;
-      //   const top = window.screenY + (window.outerHeight - height) / 2;
-      //   // window.location.href = "/login";
-      //   window.open(
-      //     "/login",
-      //     "login",
-      //     `width=${width},height=${height},left=${Math.round(left)},top=${Math.round(top)}`,
-      //   );
-      // }
     </script>
   </body>
 </html>
