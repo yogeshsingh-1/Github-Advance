@@ -59,3 +59,50 @@ Webhook = Event happens → Server automatically notifies another server.
 # Polling: "Has the payment completed?" → repeatedly asks.
 
 # Webhook: "Payment completed!" → gateway tells you automatically.
+
+# What is Reverse Proxy ?
+
+A Reverse Proxy is a server that sits between the client and your backend server.
+
+Instead of the client directly communicating with your Node.js application, the client sends requests to the Reverse Proxy, which forwards those requests to your backend server.
+
+Why do we need Reverse Proxy?
+
+1. Security: Hide your internal application ports from direct public access.
+2. SSL/TLS: Handle HTTPS certificates.
+3. Routing: Forward different URLs to different backend applications.
+4. Compression: Compress responses.
+5. Load Balancing: Distribute requests across multiple backend servers.
+
+# What is Load Balancing?
+
+Load Balancing means distributing incoming requests across multiple backend servers instead of sending every request to one server.
+
+Suppose your ERP application has 10,000 users.
+
+If all users send requests to one Node.js server, that server may become overloaded.
+
+Instead, you can run three Node.js instances.
+
+Why do we need Load Balancing?
+
+1. Distribute traffic across multiple servers.
+2. Prevent one server from becoming overloaded.
+3. Improve application availability.
+4. Support horizontal scaling.
+5. Route traffic away from unhealthy servers when health checks are configured.
+
+# Difference between Reverse Proxy and Load Balancer?
+
+This is the most important distinction.
+Reverse Proxy Load Balancer
+Acts as an intermediary between clients and backend servers. Distributes traffic across multiple backend servers.
+Can forward requests to one server or multiple servers. Usually works with multiple server instances.
+Provides SSL termination, routing, caching, etc. Provides traffic distribution and availability.
+Can work with a single backend. Needs multiple backends to distribute traffic.
+Example: Nginx, Caddy Example: Nginx, HAProxy, AWS ALB
+
+Remember:
+
+- Reverse Proxy = Receives and forwards requests.
+- Load Balancer = Decides which backend server should receive a request.

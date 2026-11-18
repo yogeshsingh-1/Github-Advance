@@ -14,11 +14,11 @@ https://accounts.google.com/.well-known/openid-configuration
 
 "jwks_uri": "https://www.googleapis.com/oauth2/v3/certs"
 
-jwks uri 
+jwks uri
 URL Google ke public keys (certificates) ka endpoint hai. Iska use Google ID Token ki signature verify karne ke liye hota hai.
 
 1. Ye actually karta kya hai?
-Jab Google tumhe ID Token deta hai, toh Google us token ko apni private key se digitally sign karta hai.
+   Jab Google tumhe ID Token deta hai, toh Google us token ko apni private key se digitally sign karta hai.
 
 Tumhara backend us signature ko verify karne ke liye Google ki corresponding public key use karta hai.
 
@@ -27,3 +27,9 @@ Tumhara backend us signature ko verify karne ke liye Google ki corresponding pub
 Google ki official google-auth-library use kar sakte ho.
 
 npm install google-auth-library
+
+JWK(JSON Web Key)
+pem(privacy enhance mail)
+
+Or
+JWT token ke through verify kar skte but public google key khud use karni pdgi har baar fetch karke.

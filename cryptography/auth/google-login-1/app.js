@@ -1,6 +1,6 @@
 import express from "express";
 import path from "node:path";
-import receivedCallBack from "./service/googleService.js";
+import receivedCallBack from "./service/googleService1.js";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import sessions from "./json/sessionDB.json" with { type: "json" };
