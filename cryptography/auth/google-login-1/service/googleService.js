@@ -3,9 +3,12 @@ import fs from "node:fs";
 const tokenUrl = "https://oauth2.googleapis.com/token";
 const client_id = process.env.client_id;
 const client_secret = process.env.client_Secret;
-const redirect_uri = "http://localhost:4000/google/callback"||"http://localhost:5500/callback.html";
+const redirect_uri =
+  "http://localhost:4000/google/callback" ||
+  "http://localhost:5500/callback.html";
 
 async function receivedCallBack(code) {
+  // start -Based on Code get id_token
   const body = new URLSearchParams({
     code,
     client_id,
@@ -21,6 +24,7 @@ async function receivedCallBack(code) {
     body,
   });
   const data = await res.json();
+  // End -Based on Code get id_token
   if (!res.ok || !data?.id_token) {
     console.error("Token error:", data);
     return null;

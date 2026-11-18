@@ -4,18 +4,40 @@
 
 // aud -> humare client id hota jise verify karna chaiye
 
+import "dotenv/config";
 import { OAuth2Client } from "google-auth-library";
-import env from "dotenv/config";
+const redirect_uri = "http://localhost:4000/google/callback";
 const client = new OAuth2Client({
   clientId: process.env.client_id,
   clientSecret: process.env.client_Secret,
+  redirectUri: redirect_uri,
+  //  grant_type: "authorization_code"  -> Ye automatically send kar deta hai.
 });
-async function verifyIdToken(id_token = "") {
+export async function generateAuthUrl() {
+  const url = client.generateAuthUrl({
+    response_type: "code",
+    scope: "openid email profile",
+    state: "1234",
+  });
+  return url;
+}
+export async function createToken(code) {
+  const tokenResponse = await client.getToken(code);
+  return tokenResponse;
+}
+
+export async function verifyIdToken(id_token = "") {
   if (!id_token.length) {
     return null;
   }
+  const clientId = process.env.client_id;
   try {
-    const loginTicket = await client.verifyIdToken({ idToken: id_token }); // It give me envelope and payload
+    const loginTicket = await client.verifyIdToken({
+      idToken: id_token,
+      audience: clientId, //compare the clientId and audience
+    }); // It give me envelope and payload
+    const userId = loginTicket.getUserId(); // it give me userId(sub)
+    const envelope = loginTicket.getEnvelope(); // it give me signature
     return loginTicket.getPayload(); // it give me user details
   } catch (error) {
     return null;

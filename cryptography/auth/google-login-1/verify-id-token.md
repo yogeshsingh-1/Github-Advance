@@ -33,3 +33,54 @@ pem(privacy enhance mail)
 
 Or
 JWT token ke through verify kar skte but public google key khud use karni pdgi har baar fetch karke.
+
+# create client using google "google-auth-library"
+
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client({
+clientId: process.env.client_id,
+clientSecret: process.env.client_Secret,
+});
+
+const client = new OAuth2Client({
+clientId: process.env.client_id,
+clientSecret: process.env.client_Secret,
+redirectUri: redirect_uri,
+// grant_type: "authorization_code" -> Ye automatically send kar deta hai.
+});
+
+# Using google auth library generate Auth Url
+
+const url = client.generateAuthUrl({
+response_type: "code",
+scope: "openid email profile",
+state: "1234",
+});
+
+- It give me oauth redirect url
+
+https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20profile&state=1234&client_id=640249440952-svt79p7s7d6c5oon3aaab5dtsroakfie.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Fgoogle%2Fcallback
+
+# Create id token using
+
+const tokenResponse = await client.getToken(code);
+
+- Ye hme token response deta hai.
+- Jisme res and tokens hota hai.
+- Ishe tokens ke andar humare id_token , accesstoken , expiry_date, scope, token_type hota hai.
+
+# Verify id token
+
+- LoginTicket hum envelope and payload deta hai.
+  envelope -> Isme jwt headers hote hai.
+  payload -> Isme user details hoti hai.
+
+- ye method hume TokenPayload deta hai. jisme users details hoti hai.
+  loginTicket.getPayload()
+
+- ye method hume Envelope deta hai(it give me signature).
+  loginTicket.getEnvelope();
+
+- ye hume userId(sub) deta hai
+  loginTicket.getUserId()

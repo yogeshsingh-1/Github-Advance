@@ -97,7 +97,7 @@ app.get("/auth/google", (req, res) => {
   });
   return res.redirect(`${oauthUrl}?${query.toString()}`);
 });
-
+// Goggle can send a code this callback url
 app.get("/google/callback", async (req, res) => {
   const { session_id } = req.signedCookies;
   const existingSession = sessions.find(
@@ -112,6 +112,7 @@ app.get("/google/callback", async (req, res) => {
   if (!code) {
     return res.redirect(`http://localhost:5500/callback.html?sid=null`);
   }
+  // using code get userdetails and verify id_token
   const result = await receivedCallBack(code);
   if (!result) {
     return res.redirect(`http://localhost:5500/callback.html?sid=null`);

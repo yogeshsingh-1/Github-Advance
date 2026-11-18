@@ -1,7 +1,9 @@
 import "dotenv/config";
 import fs from "node:fs";
 // import verifyIdToken from "./jwtverify.js";
-import verifyIdToken from "./googleAuthLibrary.js";
+import verifyIdToken, { createToken } from "./googleAuthLibrary.js";
+import { OAuth2Client } from "google-auth-library";
+
 const tokenUrl = "https://oauth2.googleapis.com/token";
 const client_id = process.env.client_id;
 const client_secret = process.env.client_Secret;
@@ -46,6 +48,9 @@ async function receivedCallBack(code) {
   //   const userDetails = atob(idToken.split(".")[1]); // atob() ->jwt string ko user json
 
   // Using jsonwebtoken verify jwt id_token
+  // const userDetails = verifyIdToken(idToken);
+
+  // Using google-auth-library verify jwt id_token
   const userDetails = await verifyIdToken(idToken);
   if (!userDetails) {
     return null;
@@ -60,4 +65,90 @@ async function receivedCallBack(code) {
 
   return { name, email, picture, id: sub };
 }
-export default receivedCallBack;
+// async function receivedCallBack1(code) {
+//   // Start - Based on Code get id_token using google-auth-libray
+//   const tokenResponse = await client.getToken(code);
+//   console.log(tokenResponse);
+//   const { res, tokens } = tokenResponse;
+//   // End - Based on Code get id_token using google-auth-libray
+//   if (!res.ok || !tokens?.id_token) {
+//     console.error("Token error:", data);
+//     return null;
+//   }
+//   // Create directory if it doesn't exist
+//   const jsonPath = "./json";
+//   fs.mkdirSync(jsonPath, { recursive: true });
+
+//   const filePath = `${jsonPath}/user.json`;
+//   let jsonData = [];
+//   if (fs.existsSync(filePath)) {
+//     const fileData = fs.readFileSync(filePath, "utf-8");
+//     jsonData = fileData ? JSON.parse(fileData) : [];
+//   }
+//   // Decode ID token payload
+//   const idToken = tokens.id_token;
+//   //   const userDetails = atob(idToken.split(".")[1]); // atob() ->jwt string ko user json
+
+//   // Using jsonwebtoken verify jwt id_token
+//   // const userDetails = verifyIdToken(idToken);
+//   client.verifyIdToken();
+//   // Using google-auth-library verify jwt id_token
+
+//   // Start -Based on idtoken verify using google-auth-libray
+//   const userDetails = await verifyIdToken(client, idToken);
+//   // End -Based on idtoken verify using google-auth-libray
+//   if (!userDetails) {
+//     return null;
+//   }
+//   const { sub, name, email, picture } = userDetails; // JSON.parse(userDetails);
+//   // Check whether user already exists
+//   const findUser = jsonData.some((user) => user.id === sub);
+//   if (!findUser) {
+//     jsonData.push({ id: sub, name, email, picture });
+//     fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+//   }
+
+//   return { name, email, picture, id: sub };
+// }
+async function receivedCallBack1(code) {
+  // Start - Based on Code get id_token using google-auth-libray
+  // const tokenResponse = await client.getToken(code);
+  const tokenResponse = await createToken(code);
+  console.log(tokenResponse);
+  const { res, tokens } = tokenResponse;
+  // End - Based on Code get id_token using google-auth-libray
+  if (!res.ok || !tokens?.id_token) {
+    console.error("Token error:", data);
+    return null;
+  }
+  // Create directory if it doesn't exist
+  const jsonPath = "./json";
+  fs.mkdirSync(jsonPath, { recursive: true });
+
+  const filePath = `${jsonPath}/user.json`;
+  let jsonData = [];
+  if (fs.existsSync(filePath)) {
+    const fileData = fs.readFileSync(filePath, "utf-8");
+    jsonData = fileData ? JSON.parse(fileData) : [];
+  }
+  // Decode ID token payload
+  const idToken = tokens.id_token;
+
+  // Using google-auth-library verify jwt id_token
+  // Start -Based on idtoken verify using google-auth-libray
+  const userDetails = await verifyIdToken(idToken);
+  // End -Based on idtoken verify using google-auth-libray
+  if (!userDetails) {
+    return null;
+  }
+  const { sub, name, email, picture } = userDetails; // JSON.parse(userDetails);
+  // Check whether user already exists
+  const findUser = jsonData.some((user) => user.id === sub);
+  if (!findUser) {
+    jsonData.push({ id: sub, name, email, picture });
+    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 2));
+  }
+
+  return { name, email, picture, id: sub };
+}
+export default receivedCallBack1;
