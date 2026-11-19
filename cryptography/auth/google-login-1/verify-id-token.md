@@ -72,6 +72,11 @@ const tokenResponse = await client.getToken(code);
 
 # Verify id token
 
+const loginTicket = await client.verifyIdToken({
+idToken: id_token,
+audience: clientId, //compare the clientId and audience
+}); // It give me envelope and payload
+
 - LoginTicket hum envelope and payload deta hai.
   envelope -> Isme jwt headers hote hai.
   payload -> Isme user details hoti hai.

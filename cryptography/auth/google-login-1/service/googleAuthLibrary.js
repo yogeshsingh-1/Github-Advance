@@ -6,26 +6,39 @@
 
 import "dotenv/config";
 import { OAuth2Client } from "google-auth-library";
-const redirect_uri = "http://localhost:4000/google/callback";
+const redirect_uri = process.env.redirect_uri;
+
 const client = new OAuth2Client({
   clientId: process.env.client_id,
   clientSecret: process.env.client_Secret,
   redirectUri: redirect_uri,
   //  grant_type: "authorization_code"  -> Ye automatically send kar deta hai.
 });
-export async function generateAuthUrl() {
+// This is return oauth login url
+export async function generateAuthUrl(state = "") {
   const url = client.generateAuthUrl({
     response_type: "code",
-    scope: "openid email profile",
-    state: "1234",
+    scope: ["openid", "email", "profile"],
+    state: state ? state : "1234",
+    // Get refresh token with the help of 2 options prompt and access_type
+    // prompt: "consent",
+    // access_type: "offline",
+
+    // agar aap aisa chate hai use humesa apna google account select kare toh prompt open ho for select account
+    prompt: "consent", // "select_account"
+    login_hint: "yogeshs368@gmail.com", // ye hum direct bina kisi account ko select karaye bina login karwa dega
   });
   return url;
 }
+
+// Start - Based on Code get id_token using google-auth-libray
 export async function createToken(code) {
   const tokenResponse = await client.getToken(code);
+  console.log(tokenResponse);
   return tokenResponse;
 }
 
+// Start - Based on id_token verify using google-auth-libray
 export async function verifyIdToken(id_token = "") {
   if (!id_token.length) {
     return null;
@@ -40,6 +53,13 @@ export async function verifyIdToken(id_token = "") {
     const envelope = loginTicket.getEnvelope(); // it give me signature
     return loginTicket.getPayload(); // it give me user details
   } catch (error) {
+    return null;
+  }
+}
+export async function getUserInfoUsingAccessToken(accessToken) {
+  try {
+    return await client.getTokenInfo(accessToken);
+  } catch (e) {
     return null;
   }
 }

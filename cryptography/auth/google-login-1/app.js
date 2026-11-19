@@ -198,6 +198,25 @@ app.get("/google/profile", (req, res) => {
   return res.status(200).json({ status: true, data: userDetails });
 });
 
+app.post("/google/user-info", async (req, res) => {
+  const accessToken = req.body.accessToken;
+  if (!accessToken) {
+    return res
+      .status(200)
+      .json({ status: false, msg: "Access Token not found" });
+  }
+  const result = await fetch(
+    "https://openidconnect.googleapis.com/v1/userinfo",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+  const data = await result.json();
+  return res.status(200).json(data);
+});
+
 function getQuery(success, msg) {
   return new URLSearchParams({ success, msg });
 }

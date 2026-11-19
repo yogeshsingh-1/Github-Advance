@@ -6,7 +6,10 @@ import "dotenv/config";
 import sessions from "./json/sessionDB.json" with { type: "json" };
 import users from "./json/user.json" with { type: "json" };
 import { writeFileSync } from "node:fs";
-import { generateAuthUrl } from "./service/googleAuthLibrary.js";
+import {
+  generateAuthUrl,
+  getUserInfoUsingAccessToken,
+} from "./service/googleAuthLibrary.js";
 const port = 4000;
 const app = express();
 app.use(cookieParser("secret"));
@@ -131,6 +134,25 @@ app.get("/google/profile", (req, res) => {
   return res.status(200).json({ status: true, data: userDetails });
 });
 
+app.post("/google/user-info", async (req, res) => {
+  const accessToken = req.body.accessToken;
+  if (!accessToken) {
+    return res
+      .status(200)
+      .json({ status: false, msg: "Access Token not found." });
+  }
+
+  const result = await getUserInfoUsingAccessToken(accessToken);
+  if (!result) {
+    return res
+      .status(200)
+      .json({ status: false, msg: "Access Token Invalid." });
+  }
+  return res.status(200).json({
+    status: true,
+    data: result,
+  });
+});
 function getQuery(success, msg) {
   return new URLSearchParams({ success, msg });
 }
