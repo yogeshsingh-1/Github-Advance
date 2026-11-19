@@ -1,5 +1,9 @@
 # Google Auth Library in Node.js
 
+ye jo id token hota hai, woh ek jwt token hota hai.(header, payload , signature)
+
+ye jo id token hai, woh RS256 algorithm ka use karke sign kiya gya hai. ishe token ko verify karne ke liye hume ek public key jarurat hoti hai. (https://www.googleapis.com/oauth2/v3/certs)
+
 The google-auth-library is an official Google library for Node.js that helps your backend authenticate users and communicate securely with Google services.
 
 Think of it as a helper that handles the complicated OAuth 2.0 and OpenID Connect operations instead of making you manually construct HTTP requests to Google's token endpoints.

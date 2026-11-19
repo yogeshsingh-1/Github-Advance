@@ -1,6 +1,5 @@
 import express from "express";
 import path from "node:path";
-import receivedCallBack from "./service/googleService1.js";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import sessions from "./json/sessionDB.json" with { type: "json" };
@@ -8,8 +7,8 @@ import users from "./json/user.json" with { type: "json" };
 import { writeFileSync } from "node:fs";
 import { passportMiddleware } from "./service/passport.js";
 import passport from "passport";
+import fs from "fs";
 import {
-  generateAuthUrl,
   getUserInfoUsingAccessToken,
 } from "./service/googleAuthLibrary.js";
 const port = 4000;
@@ -38,7 +37,7 @@ passportMiddleware();
 // });
 app.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] }),
+  passport.authenticate("google", { scope: ["profile","email","openid"],session:false }),
 );
 
 // Goggle can send a code this callback url
@@ -57,7 +56,7 @@ app.get(
 //     return res.redirect(`http://localhost:5500/callback.html?sid=null`);
 //   }
 //   // using code get userdetails and verify id_token
-//   const result = await receivedCallBack(code);
+  // const result = await receivedCallBack(code);
 //   if (!result) {
 //     return res.redirect(`http://localhost:5500/callback.html?sid=null`);
 //   }
@@ -82,9 +81,42 @@ app.get(
 
 app.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: "",session:false }),
   (req, res) => {
     console.log("Successfully login");
+    console.log(req.user);
+      const {googleId: sub, name, email,photo: picture } = req.user; // JSON.parse(userDetails);
+      // Check whether user already exists
+     
+      const findUser = users.some((user) => user.id === sub);
+      if (!findUser) {
+        users.push({
+          id: sub,
+          name,
+          email,
+          picture,
+          // access_token: tokens?.access_token,
+        });
+        fs.writeFileSync(`./json/user.json`, JSON.stringify(users, null, 2));
+      }
+      let sessionId = null;
+  const sessionHave = sessions.find(({ userId }) => userId === sub);
+  if (sessionHave) {
+    sessionId = sessionHave.sessionId;
+  } else {
+    sessionId = crypto.randomUUID();
+    sessions.push({ sessionId, userId:sub });
+    writeFileSync("./json/sessionDB.json", JSON.stringify(sessions, null, 2));
+  }
+
+  res.cookie("session_id", sessionId, {
+    signed: true,
+    httpOnly: true,
+    maxAge: 1 * 60 * 60 * 1000,
+    domain: "localhost",
+  });
+  return res.redirect(`http://localhost:5500/callback.html?sid=${sessionId}`);
+  
   },
 );
 
