@@ -1,0 +1,22 @@
+{
+  "name": "umzug",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^26.6.6",
+    "@types/sequelize": "^4.28.20",
+    "express": "^5.3.0",
+    "umzug": "^3.8.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.5"
+  }
+}
