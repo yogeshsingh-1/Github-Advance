@@ -1,3 +1,6 @@
+# Github repo
+http://github.com/sequelize/umzug
+
 # Install Packages:
 
 npm install --save-dev sequelize-cli
