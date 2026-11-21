@@ -12,5 +12,6 @@ const sequelize = new Sequelize(database, username, password, {
     idle: 10000,
     acquire: 30000,
   },
+  logging: false,
 });
 export default sequelize;

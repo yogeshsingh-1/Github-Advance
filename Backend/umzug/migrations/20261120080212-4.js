@@ -1,7 +1,7 @@
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 import { Sequelize } from "sequelize";
-async function up({ context: queryInterface }) {
+async function up({ context }) {
   /**
    * Add altering commands here.
    *
@@ -9,9 +9,10 @@ async function up({ context: queryInterface }) {
    * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
    */
   // await queryInterface.Sequelize.query();
+   const { queryInterface, schema } = context;
   await queryInterface.sequelize.query(
     `
-    INSERT INTO public.student
+    INSERT INTO "${schema}".student
 (id, "name", "createdAt", "updatedAt")
 VALUES(1,'Yogesh',now(),now());
 `,

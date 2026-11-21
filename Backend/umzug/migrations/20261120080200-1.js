@@ -2,32 +2,42 @@
 
 /** @type {import('sequelize-cli').Migration} */
 import { Sequelize } from "sequelize";
-async function up({ context: queryInterface }) {
+async function up({ context }) {
   /**
    * Add altering commands here.
    *
    * Example:
    * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
    */
-  await queryInterface.createTable("users", {
-    id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      primaryKey: true,
+  const date = new Date();
+  console.log(date);
+  const { queryInterface, schema } = context;
+  console.log(schema);
+  await queryInterface.createTable(
+    {
+      tableName: "users",
+      schema,
     },
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false,
+    {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
     },
-    createdAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
-      allowNull: false,
-    },
-  });
+  );
 }
 
 export { up };
