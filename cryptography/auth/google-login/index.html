@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="getIdToken()">Login With Google</button>
+    <script>
+      const oauthUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+      const redirect_uri = "http://localhost:5500";
+      //  ||
+      // "http://localhost:4000/google/callback" ||
+      // "http://localhost:5500/callback.html";
+      const client_id =
+        "640249440952-saeo22sdb511is4309tho9m408gbjrqj.apps.googleusercontent.com";
+      const query = new URLSearchParams({
+        response_type: "id_token",
+        client_id: client_id,
+        scope: "openid email profile",
+        redirect_uri: redirect_uri,
+        nonce: "1232121",
+      });
+      function getIdToken() {
+        const url = `${oauthUrl}?${query}`;
+        console.log(url);
+        window.open(url, "auth", "left:500;top:300");
+      }
+    </script>
+  </body>
+</html>
+<!-- 
+http://localhost:5500/#iss=https://accounts.google.com&id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk0M2EzYTVkN2Q5MTk2MjVhNDU0ZTQ4OWI3NWMyOWFkYWI1N2FjYmEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2NDAyNDk0NDA5NTItc2FlbzIyc2RiNTExaXM0MzA5dGhvOW00MDhnYmpycWouYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2NDAyNDk0NDA5NTItc2FlbzIyc2RiNTExaXM0MzA5dGhvOW00MDhnYmpycWouYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDQzNzMxNzQzNDMxMDE3Mzc1MDEiLCJlbWFpbCI6ImhpbWFuaWdlcmc5MDBAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5vbmNlIjoiMTIzMjEyMSIsIm5iZiI6MTc5NTU5OTc5NywibmFtZSI6IkhpbWFuaSBHZXJnIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tyTEZUYXJSYTlqaG9pZXpNTUM3UHdjckVydC1iMDl2MkN4cjYxZ0RnUjdxdnR2Zz1zOTYtYyIsImdpdmVuX25hbWUiOiJIaW1hbmkiLCJmYW1pbHlfbmFtZSI6IkdlcmciLCJpYXQiOjE3OTU2MDAwOTcsImV4cCI6MTc5NTYwMzY5NywianRpIjoiODE0YjJhMTM2NWY2MGEwMmNhYzY3NGQwYzhiYjVlZWM2MzFjYmFhZCJ9.iGkOnUBA6tjg75qH4Fai_HrQckNmeR-51HVkduNUV1OQZNPeirPhEb-UQ_Foe1sVxAIq91OldfIskbwiVqRFxNZL00v86ws5fnVcBlxtX7FO9EAj243Z4NdYgI7zzp-qIvW4G6IzQZrRVN51nbl2iu6KyXp_rEKZrXebZpZ0LVLFLGj-CXawqlz2yhLh9Aoo896WqpHB2AxWqcMARWPmCBrEvePm2CmNVsWssUf46knPnxBsGI2bLy2xMb3bDCYfl06vB7X6zsa7mC0-EBxi9kx-NPkZmiJ-rcD7P47W4KjXraFEO3u3EoWvPPBiOkIm6OFFqeguEXtc2VpSscPXBA&authuser=3&prompt=consent&version_info=CmxfU1ZJX0VJeW0xTV9yb3BnREdBNGlQMDFCUlVSSVpsOXhTbXM0VjJ4RGRITk9VbkUyVWxoa2FITnZSamRuWTIxRVRHMDNXRWxTVVU1R2IxZERjbk0xVVdkVmJVeFNXa2hrYVUxWFFXcDZad18 -->
